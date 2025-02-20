@@ -102,7 +102,7 @@ TEST_F(configTest, cacheSize) {
     EXPECT_EQ(configTestPrivateAccessor::callCacheSize(config), 4);
 }
 
-TEST_F(configTest, addToCacheTest) {
+TEST_F(configTest, unknownKeyTest) {
     Config& config = Config::getInstance();
     config.loadConfig(EXAMPLE_FILENAME);
     config.get<int>("opac:lowTemp:numeric:random", 10);
