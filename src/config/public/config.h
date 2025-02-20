@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 #include "yaml-cpp/yaml.h"
 
@@ -15,77 +16,154 @@
  * @brief Singleton class to manage configuration settings loaded from a YAML file.
  */
 class Config {
- private:
-    /**
-     * @brief Private constructor to prevent instantiation.
-     */
-    Config();
+private:
+   /**
+    * @brief Private constructor to prevent instantiation.
+    */
+   Config();
 
-    /**
-     * @brief Destructor.
-     */
-    ~Config();
+   /**
+    * @brief Destructor.
+    */
+   ~Config();
 
-    YAML::Node yamlRoot; ///< Root node of the YAML configuration.
-    std::string configFilePath; ///< Path to the configuration file.
+   YAML::Node yamlRoot; ///< Root node of the YAML configuration.
+   std::string configFilePath; ///< Path to the configuration file.
+   bool debug = false; ///< Flag to enable debug output.
 
- public:
-    /**
-     * @brief Get the singleton instance of the Config class.
-     * @return Reference to the Config instance.
-     */
-    static Config& getInstance();
+   std::map<std::string, YAML::Node> configMap; ///< Cache for the location of configuration settings.
+   std::vector<std::string> unknownKeys; ///< Cache for the existence of configuration settings.
 
-    Config (const Config&) = delete;
-    Config& operator= (const Config&) = delete;
-    Config (Config&&) = delete;
-    Config& operator= (Config&&) = delete;
-
-    /**
-     * @brief Load configuration from a YAML file.
-     * @param configFilePath Path to the YAML configuration file.
-     * @return True if the configuration was loaded successfully, false otherwise.
-     */
-    bool loadConfig(const std::string& configFilePath);
-
-    /**
-     * @brief Get the input table from the configuration.
-     * @return Input table as a string.
-     */
-    std::string getInputTable() const;
-
-    /**
-     * @brief Get a configuration value by key.
-     * @tparam T Type of the value to retrieve.
-     * @param key Key of the configuration value.
-     * @param defaultValue Default value to return if the key does not exist.
-     * @return Configuration value of type T.
-     * 
-     * @example
-     * @code
-     * Config& config = Config::getInstance();
-     * config.loadConfig("example.yaml");
-     * int maxIter = config.get<int>("opac:lowTemp:numeric:maxIter", 10);
-     */
+   /**
+    * @brief Get a value from the configuration cache.
+    * @tparam T Type of the value to retrieve.
+    * @param key Key of the configuration value.
+    * @param defaultValue Default value to return if the key does not exist.
+    * @return Configuration value of type T.
+    */
    template <typename T>
-   T get(const std::string &key, T defaultValue) {
-      YAML::Node node = YAML::Clone(yamlRoot);
-      std::istringstream keyStream(key);
-      std::string subKey;
-      while (std::getline(keyStream, subKey, ':')) {
-         if (!node[subKey]) {
+   T getFromCache(const std::string &key, T defaultValue) {
+      if (configMap.find(key) != configMap.end()) {
+         try {
+               return configMap[key].as<T>();
+         } catch (const YAML::Exception& e) {
                return defaultValue;
          }
-         node = node[subKey]; // go deeper
+      }
+      return defaultValue;
+   }
+
+
+   /**
+    * @brief Check if a key exists in the configuration cache.
+    * @param key Key to check.
+    * @return True if the key exists in the cache, false otherwise.
+    */
+   bool isKeyInCache(const std::string &key);
+
+   /**
+    * @brief Add a key-value pair to the configuration cache.
+    * @param key Key of the configuration value.
+    * @param node YAML node containing the configuration value.
+    */
+   void addToCache(const std::string &key, const YAML::Node &node);
+
+   /**
+    * @brief Register a key as not found in the configuration.
+    * @param key Key that was not found.
+    */
+   void registerUnknownKey(const std::string &key);
+
+public:
+   /**
+    * @brief Get the singleton instance of the Config class.
+    * @return Reference to the Config instance.
+    */
+   static Config& getInstance();
+
+   Config (const Config&) = delete;
+   Config& operator= (const Config&) = delete;
+   Config (Config&&) = delete;
+   Config& operator= (Config&&) = delete;
+
+   void setDebug(bool debug) { this->debug = debug; }
+
+   /**
+    * @brief Load configuration from a YAML file.
+    * @param configFilePath Path to the YAML configuration file.
+    * @return True if the configuration was loaded successfully, false otherwise.
+    */
+   bool loadConfig(const std::string& configFilePath);
+
+   /**
+    * @brief Get the input table from the configuration.
+    * @return Input table as a string.
+    */
+   std::string getInputTable() const;
+
+   /**
+    * @brief Get a configuration value by key.
+    * @tparam T Type of the value to retrieve.
+    * @param key Key of the configuration value.
+    * @param defaultValue Default value to return if the key does not exist.
+    * @return Configuration value of type T.
+    * 
+    * @example
+    * @code
+    * Config& config = Config::getInstance();
+    * config.loadConfig("example.yaml");
+    * int maxIter = config.get<int>("opac:lowTemp:numeric:maxIter", 10);
+    */
+   template <typename T>
+   T get(const std::string &key, T defaultValue) {
+      // --- Check if the key has already been checked for existence 
+      if (std::find(unknownKeys.begin(), unknownKeys.end(), key) != unknownKeys.end()) {
+         return defaultValue; // If the key has already been added to the unknown cache do not traverse the YAML tree or hit the cache
       }
 
-      try {
-         return node.as<T>();
-      } catch (const YAML::Exception& e) {
-         return defaultValue; // return default value if the key does not exist
+      // --- Check if the key is already in the cache (avoid traversing YAML nodes)
+      if (isKeyInCache(key)) {
+         return getFromCache<T>(key, defaultValue);
+      }
+      // --- If the key is not in the cache, check the YAML file
+      else {
+         YAML::Node node = YAML::Clone(yamlRoot);
+         std::istringstream keyStream(key);
+         std::string subKey;
+         while (std::getline(keyStream, subKey, ':')) {
+            if (!node[subKey]) {
+                  // Key does not exist
+                  registerUnknownKey(key);
+                  return defaultValue;
+            }
+            node = node[subKey]; // go deeper
+         }
+
+         try {
+            // Key exists and is of the requested type
+            addToCache(key, node);
+            return node.as<T>();
+         } catch (const YAML::Exception& e) {
+            // Key is not of the requested type
+            registerUnknownKey(key);
+            return defaultValue; // return default value if the key does not exist
+         }
       }
    }
 
+   friend std::ostream& operator<<(std::ostream& os, const Config& config) {
+      if (!config.debug) {
+         os << "Config file: " << config.configFilePath << std::endl;
+      } else{
+         // Print entire YAML file from root
+         os << "Config file: " << config.configFilePath << std::endl;
+         os << config.yamlRoot << std::endl;
+      }
+      return os;
+   }
+
+   // Setup gTest class as a friend
+   friend class configTestPrivateAccessor;
 };
 
 #endif

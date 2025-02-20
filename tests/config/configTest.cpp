@@ -5,12 +5,39 @@
 #include <vector>
 #include <set>
 #include <sstream>
+#include <algorithm>
 
 std::string EXAMPLE_FILENAME = std::string(getenv("MESON_SOURCE_ROOT")) + "/tests/config/example.yaml";
 /**
  * @file configTest.cpp
  * @brief Unit tests for the Config class.
  */
+
+class configTestPrivateAccessor {
+public:
+    static bool callIsKeyInCache(Config& config, const std::string& key) {
+        return config.isKeyInCache(key);
+    }
+
+    static int callCacheSize(Config& config) {
+        return config.configMap.size();
+    }
+    
+    static void callAddToCache(Config& config, const std::string& key, const YAML::Node& node) {
+        config.addToCache(key, node);
+    }
+
+    static void callRegisterKeyNotFound(Config& config, const std::string& key) {
+        config.registerUnknownKey(key);
+    }
+
+    static bool CheckIfKeyUnknown(Config& config, const std::string& key) {
+        if (std::find(config.unknownKeys.begin(), config.unknownKeys.end(), key) == config.unknownKeys.end()) {
+            return false;
+        }
+        return true;
+    }
+};
 
 /**
  * @brief Test suite for the Config class.
@@ -54,7 +81,31 @@ TEST_F(configTest, getTest) {
     EXPECT_EQ(polytropicIndex2, 2.0);
 }
 
-TEST_F(configTest, secondSingleton) {
+TEST_F(configTest, secondSingletonTest) {
     Config& config = Config::getInstance();
     EXPECT_EQ(config.get<int>("opac:lowTemp:numeric:maxIter", 10), 100);
+}
+
+TEST_F(configTest, isKeyInCacheTest) {
+    Config& config = Config::getInstance();
+    config.loadConfig(EXAMPLE_FILENAME);
+    EXPECT_TRUE(configTestPrivateAccessor::callIsKeyInCache(config, "opac:lowTemp:numeric:maxIter"));
+    EXPECT_FALSE(configTestPrivateAccessor::callIsKeyInCache(config, "opac:lowTemp:numeric:maxIter2"));
+}
+
+TEST_F(configTest, cacheSize) {
+    Config& config = Config::getInstance();
+    config.loadConfig(EXAMPLE_FILENAME);
+    EXPECT_EQ(configTestPrivateAccessor::callCacheSize(config), 3);
+    EXPECT_NE(configTestPrivateAccessor::callCacheSize(config), 4);
+    config.get<std::string>("outputDir", "DEBUG");
+    EXPECT_EQ(configTestPrivateAccessor::callCacheSize(config), 4);
+}
+
+TEST_F(configTest, unknownKeyTest) {
+    Config& config = Config::getInstance();
+    config.loadConfig(EXAMPLE_FILENAME);
+    config.get<int>("opac:lowTemp:numeric:random", 10);
+    EXPECT_FALSE(configTestPrivateAccessor::CheckIfKeyUnknown(config, "opac:lowTemp:numeric:maxIter"));
+    EXPECT_TRUE(configTestPrivateAccessor::CheckIfKeyUnknown(config, "opac:lowTemp:numeric:random"));
 }
