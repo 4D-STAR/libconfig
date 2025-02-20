@@ -29,14 +29,4 @@ bool Config::loadConfig(const std::string& configFile) {
     return true;
 }
 
-bool Config::isKeyInCache(const std::string &key) {
-    return configMap.find(key) != configMap.end();
-}
 
-void Config::addToCache(const std::string &key, const YAML::Node &node) {
-    configMap[key] = node;
-}
-
-void Config::registerUnknownKey(const std::string &key) {
-    unknownKeys.push_back(key);
-}

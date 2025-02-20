@@ -151,6 +151,12 @@ public:
       }
    }
 
+   /**
+    * @brief Print the configuration file path and the YAML root node.
+    * @param os Output stream.
+    * @param config Config object to print.
+    * @return Output stream.
+    */
    friend std::ostream& operator<<(std::ostream& os, const Config& config) {
       if (!config.debug) {
          os << "Config file: " << config.configFilePath << std::endl;
