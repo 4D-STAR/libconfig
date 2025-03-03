@@ -26,6 +26,7 @@ bool Config::loadConfig(const std::string& configFile) {
         std::cerr << "Error: " << e.what() << std::endl;
         return false;
     }
+    loaded = true;
     return true;
 }
 

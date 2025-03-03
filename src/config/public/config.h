@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <stdexcept>
 
 #include "yaml-cpp/yaml.h"
 
@@ -30,6 +31,7 @@ private:
    YAML::Node yamlRoot; ///< Root node of the YAML configuration.
    std::string configFilePath; ///< Path to the configuration file.
    bool debug = false; ///< Flag to enable debug output.
+   bool loaded = false; ///< Flag to indicate if the configuration has been loaded.
 
    std::map<std::string, YAML::Node> configMap; ///< Cache for the location of configuration settings.
    std::vector<std::string> unknownKeys; ///< Cache for the existence of configuration settings.
@@ -116,6 +118,9 @@ public:
     */
    template <typename T>
    T get(const std::string &key, T defaultValue) {
+      if (!loaded) {
+         throw std::runtime_error("Configuration file not loaded! This should be done at the very start of whatever main function you are using (and only done once!)");
+      }
       // --- Check if the key has already been checked for existence 
       if (std::find(unknownKeys.begin(), unknownKeys.end(), key) != unknownKeys.end()) {
          return defaultValue; // If the key has already been added to the unknown cache do not traverse the YAML tree or hit the cache
