@@ -11,7 +11,7 @@ foreach test_file : test_sources
   test_exe = executable(
       exe_name,
       test_file,
-      dependencies: [gtest_dep, config_dep],
+      dependencies: [gtest_dep, config_dep, gtest_main],
       include_directories: include_directories('../../src/config/public'),
       link_with: libconst,  # Link the dobj library
       install_rpath: '@loader_path/../../src'  # Ensure runtime library path resolves correctly
