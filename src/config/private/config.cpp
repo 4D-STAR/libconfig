@@ -46,6 +46,7 @@ bool Config::loadConfig(const std::string& configFile) {
         std::cerr << "Error: " << e.what() << std::endl;
         return false;
     }
+    m_loaded = true;
     return true;
 }
 
@@ -59,4 +60,46 @@ void Config::addToCache(const std::string &key, const YAML::Node &node) {
 
 void Config::registerUnknownKey(const std::string &key) {
     unknownKeys.push_back(key);
+}
+
+bool Config::has(const std::string &key) {
+    if (!m_loaded) {
+        throw std::runtime_error("Error! Config file not loaded");
+    }
+    if (isKeyInCache(key)) { return true; }
+
+    YAML::Node node = YAML::Clone(yamlRoot);
+    std::istringstream keyStream(key);
+    std::string subKey;
+    while (std::getline(keyStream, subKey, ':')) {
+    if (!node[subKey]) {
+            registerUnknownKey(key);
+            return false;
+    }
+    node = node[subKey]; // go deeper
+    }
+
+    // Key exists and is of the requested type
+    addToCache(key, node);
+    return true;
+}
+
+void recurse_keys(const YAML::Node& node, std::vector<std::string>& keyList, const std::string& path = "") {
+    if (node.IsMap()) {
+        for (const auto& it : node) {
+            std::string key = it.first.as<std::string>();
+            std::string new_path = path.empty() ? key : path + ":" + key;
+            recurse_keys(it.second, keyList, new_path);
+        }
+    } else {
+        keyList.push_back(path);
+    }
+
+}
+
+std::vector<std::string> Config::keys() const {
+    std::vector<std::string> keyList;
+    YAML::Node node = YAML::Clone(yamlRoot);
+    recurse_keys(node, keyList);
+    return keyList;
 }

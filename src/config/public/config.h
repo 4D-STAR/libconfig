@@ -23,13 +23,17 @@
 
 #include <string>
 #include <iostream>
-#include <fstream>
 #include <sstream>
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <stdexcept>
 
+// Required for YAML parsing
 #include "yaml-cpp/yaml.h"
+
+// -- Forward Def of Resource manager to let it act as a friend of Config --
+class ResourceManager;
 
 /**
  * @class Config
@@ -94,6 +98,21 @@ private:
     */
    void registerUnknownKey(const std::string &key);
 
+   bool m_loaded = false;
+
+   // Only friends can access get without a default value
+   template <typename T>
+   T get(const std::string &key) {
+      if (!m_loaded) {
+         throw std::runtime_error("Error! Config file not loaded");
+      }
+      if (has(key)) {
+         return getFromCache<T>(key, T());
+      } else {
+         throw std::runtime_error("Error! Key not found in config file");
+      }
+   }
+
 public:
    /**
     * @brief Get the singleton instance of the Config class.
@@ -136,6 +155,9 @@ public:
     */
    template <typename T>
    T get(const std::string &key, T defaultValue) {
+      if (!m_loaded) {
+         throw std::runtime_error("Error! Config file not loaded");
+      }
       // --- Check if the key has already been checked for existence 
       if (std::find(unknownKeys.begin(), unknownKeys.end(), key) != unknownKeys.end()) {
          return defaultValue; // If the key has already been added to the unknown cache do not traverse the YAML tree or hit the cache
@@ -171,6 +193,19 @@ public:
       }
    }
 
+   /**  
+   * @brief Check if the key exists in the given config file
+   * @param key Key to check;
+   * @return boolean true or false
+   */
+   bool has(const std::string &key);
+
+   /**
+   * @brief Get all keys defined in the configuration file.
+   * @return Vector of all keys in the configuration file.
+   */
+   std::vector<std::string> keys() const;
+
    /**
     * @brief Print the configuration file path and the YAML root node.
     * @param os Output stream.
@@ -178,6 +213,10 @@ public:
     * @return Output stream.
     */
    friend std::ostream& operator<<(std::ostream& os, const Config& config) {
+      if (!config.m_loaded) {
+         os << "Config file not loaded" << std::endl;
+         return os;
+      }
       if (!config.debug) {
          os << "Config file: " << config.configFilePath << std::endl;
       } else{
@@ -190,6 +229,8 @@ public:
 
    // Setup gTest class as a friend
    friend class configTestPrivateAccessor;
+   // -- Resource Manager is a friend of config so it can create a seperate instance
+   friend class ResourceManager;
 };
 
 #endif
