@@ -8,7 +8,7 @@ config_headers = files(
 )
 
 # Define the libconfig library so it can be linked against by other parts of the build system
-libconfig = static_library('config',
+libconfig = library('config',
     config_sources, 
     include_directories: include_directories('public'),
     cpp_args: ['-fvisibility=default'],

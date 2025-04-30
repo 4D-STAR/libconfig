@@ -156,7 +156,12 @@ public:
    template <typename T>
    T get(const std::string &key, T defaultValue) {
       if (!m_loaded) {
-         throw std::runtime_error("Error! Config file not loaded");
+// ONLY THROW ERROR IF HARSH OR WARN CONFIGURATION
+#if defined(CONFIG_HARSH)
+         throw std::runtime_error("Error! Config file not loaded. To disable this error, recompile with CONFIG_HARSH=0");
+#elif defined(CONFIG_WARN)
+         std::cerr << "Warning! Config file not loaded. This instance of 4DSSE was compiled with CONFIG_WARN so the code will continue using only default values" << std::endl;
+#endif
       }
       // --- Check if the key has already been checked for existence 
       if (std::find(unknownKeys.begin(), unknownKeys.end(), key) != unknownKeys.end()) {
