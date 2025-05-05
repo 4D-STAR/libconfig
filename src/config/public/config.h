@@ -18,8 +18,7 @@
 //   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
 // *********************************************************************** */
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -135,12 +134,6 @@ public:
    bool loadConfig(const std::string& configFilePath);
 
    /**
-    * @brief Get the input table from the configuration.
-    * @return Input table as a string.
-    */
-   std::string getInputTable() const;
-
-   /**
     * @brief Get a configuration value by key.
     * @tparam T Type of the value to retrieve.
     * @param key Key of the configuration value.
@@ -234,8 +227,6 @@ public:
 
    // Setup gTest class as a friend
    friend class configTestPrivateAccessor;
-   // -- Resource Manager is a friend of config so it can create a seperate instance
+   // --- Resource Manager is a friend of config so it can create a separate instance
    friend class ResourceManager;
 };
-
-#endif
