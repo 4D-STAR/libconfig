@@ -18,8 +18,7 @@
 //   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
 // *********************************************************************** */
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -27,7 +26,6 @@
 #include <vector>
 #include <map>
 #include <algorithm>
-#include <stdexcept>
 #include <stdexcept>
 
 // Required for YAML parsing
@@ -162,7 +160,12 @@ public:
    template <typename T>
    T get(const std::string &key, T defaultValue) {
       if (!m_loaded) {
-         throw std::runtime_error("Configuration file not loaded! This should be done at the very start of whatever main function you are using (and only done once!)");
+// ONLY THROW ERROR IF HARSH OR WARN CONFIGURATION
+#if defined(CONFIG_HARSH)
+         throw std::runtime_error("Error! Config file not loaded. To disable this error, recompile with CONFIG_HARSH=0");
+#elif defined(CONFIG_WARN)
+         std::cerr << "Warning! Config file not loaded. This instance of 4DSSE was compiled with CONFIG_WARN so the code will continue using only default values" << std::endl;
+#endif
       }
       // --- Check if the key has already been checked for existence 
       if (std::find(unknownKeys.begin(), unknownKeys.end(), key) != unknownKeys.end()) {
@@ -241,5 +244,3 @@ public:
 
 } // namespace config
 } // namespace serif
-
-#endif
