@@ -29,6 +29,9 @@
 
 #include "config.h"
 
+namespace serif {
+namespace config {
+
 Config::Config() {}
 
 Config::~Config() {}
@@ -103,3 +106,6 @@ std::vector<std::string> Config::keys() const {
     recurse_keys(node, keyList);
     return keyList;
 }
+
+} // namespace config
+} // namespace serif

@@ -34,7 +34,11 @@
 #include "yaml-cpp/yaml.h"
 
 // -- Forward Def of Resource manager to let it act as a friend of Config --
-class ResourceManager;
+namespace serif { namespace resource { class ResourceManager; } } // Forward declaration
+class configTestPrivateAccessor; // Forward declaration for test utility
+
+namespace serif {
+namespace config {
 
 /**
  * @class Config
@@ -230,9 +234,12 @@ public:
    }
 
    // Setup gTest class as a friend
-   friend class configTestPrivateAccessor;
+   friend class ::configTestPrivateAccessor; // Friend declaration for global test accessor
    // -- Resource Manager is a friend of config so it can create a seperate instance
-   friend class ResourceManager;
+   friend class serif::resource::ResourceManager; // Adjusted friend declaration
 };
+
+} // namespace config
+} // namespace serif
 
 #endif
