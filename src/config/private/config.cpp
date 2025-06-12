@@ -29,83 +29,81 @@
 
 #include "config.h"
 
-namespace serif {
-namespace config {
+namespace serif::config {
 
-Config::Config() {}
+    Config::Config() {}
 
-Config::~Config() {}
+    Config::~Config() {}
 
-Config& Config::getInstance() {
-    static Config instance;
-    return instance;
-}
-
-bool Config::loadConfig(const std::string& configFile) {
-    configFilePath = configFile;
-    try {
-        yamlRoot = YAML::LoadFile(configFile);
-    } catch (YAML::BadFile& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return false;
+    Config& Config::getInstance() {
+        static Config instance;
+        return instance;
     }
-    m_loaded = true;
-    return true;
-}
 
-bool Config::isKeyInCache(const std::string &key) {
-    return configMap.find(key) != configMap.end();
-}
-
-void Config::addToCache(const std::string &key, const YAML::Node &node) {
-    configMap[key] = node;
-}
-
-void Config::registerUnknownKey(const std::string &key) {
-    unknownKeys.push_back(key);
-}
-
-bool Config::has(const std::string &key) {
-    if (!m_loaded) {
-        throw std::runtime_error("Error! Config file not loaded");
-    }
-    if (isKeyInCache(key)) { return true; }
-
-    YAML::Node node = YAML::Clone(yamlRoot);
-    std::istringstream keyStream(key);
-    std::string subKey;
-    while (std::getline(keyStream, subKey, ':')) {
-    if (!node[subKey]) {
-            registerUnknownKey(key);
+    bool Config::loadConfig(const std::string& configFile) {
+        configFilePath = configFile;
+        try {
+            yamlRoot = YAML::LoadFile(configFile);
+        } catch (YAML::BadFile& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
             return false;
-    }
-    node = node[subKey]; // go deeper
-    }
-
-    // Key exists and is of the requested type
-    addToCache(key, node);
-    return true;
-}
-
-void recurse_keys(const YAML::Node& node, std::vector<std::string>& keyList, const std::string& path = "") {
-    if (node.IsMap()) {
-        for (const auto& it : node) {
-            std::string key = it.first.as<std::string>();
-            std::string new_path = path.empty() ? key : path + ":" + key;
-            recurse_keys(it.second, keyList, new_path);
         }
-    } else {
-        keyList.push_back(path);
+        m_loaded = true;
+        return true;
+    }
+
+    bool Config::isKeyInCache(const std::string &key) {
+        return configMap.find(key) != configMap.end();
+    }
+
+    void Config::addToCache(const std::string &key, const YAML::Node &node) {
+        configMap[key] = node;
+    }
+
+    void Config::registerUnknownKey(const std::string &key) {
+        unknownKeys.push_back(key);
+    }
+
+    bool Config::has(const std::string &key) {
+        if (!m_loaded) {
+            throw std::runtime_error("Error! Config file not loaded");
+        }
+        if (isKeyInCache(key)) { return true; }
+
+        YAML::Node node = YAML::Clone(yamlRoot);
+        std::istringstream keyStream(key);
+        std::string subKey;
+        while (std::getline(keyStream, subKey, ':')) {
+            if (!node[subKey]) {
+                registerUnknownKey(key);
+                return false;
+            }
+            node = node[subKey]; // go deeper
+        }
+
+        // Key exists and is of the requested type
+        addToCache(key, node);
+        return true;
+    }
+
+    void recurse_keys(const YAML::Node& node, std::vector<std::string>& keyList, const std::string& path = "") {
+        if (node.IsMap()) {
+            for (const auto& it : node) {
+                auto key = it.first.as<std::string>();
+                auto new_path = path.empty() ? key : path + ":" + key;
+                recurse_keys(it.second, keyList, new_path);
+            }
+        } else {
+            keyList.push_back(path);
+        }
+
+    }
+
+    std::vector<std::string> Config::keys() const {
+        std::vector<std::string> keyList;
+        YAML::Node node = YAML::Clone(yamlRoot);
+        recurse_keys(node, keyList);
+        return keyList;
     }
 
 }
-
-std::vector<std::string> Config::keys() const {
-    std::vector<std::string> keyList;
-    YAML::Node node = YAML::Clone(yamlRoot);
-    recurse_keys(node, keyList);
-    return keyList;
-}
-
-} // namespace config
-} // namespace serif
