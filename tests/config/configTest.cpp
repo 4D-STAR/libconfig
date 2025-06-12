@@ -15,23 +15,23 @@ std::string EXAMPLE_FILENAME = std::string(getenv("MESON_SOURCE_ROOT")) + "/test
 
 class configTestPrivateAccessor {
 public:
-    static bool callIsKeyInCache(Config& config, const std::string& key) {
+    static bool callIsKeyInCache(serif::config::Config& config, const std::string& key) {
         return config.isKeyInCache(key);
     }
 
-    static int callCacheSize(Config& config) {
+    static int callCacheSize(serif::config::Config& config) {
         return config.configMap.size();
     }
     
-    static void callAddToCache(Config& config, const std::string& key, const YAML::Node& node) {
+    static void callAddToCache(serif::config::Config& config, const std::string& key, const YAML::Node& node) {
         config.addToCache(key, node);
     }
 
-    static void callRegisterKeyNotFound(Config& config, const std::string& key) {
+    static void callRegisterKeyNotFound(serif::config::Config& config, const std::string& key) {
         config.registerUnknownKey(key);
     }
 
-    static bool CheckIfKeyUnknown(Config& config, const std::string& key) {
+    static bool CheckIfKeyUnknown(serif::config::Config& config, const std::string& key) {
         if (std::find(config.unknownKeys.begin(), config.unknownKeys.end(), key) == config.unknownKeys.end()) {
             return false;
         }
@@ -48,22 +48,22 @@ class configTest : public ::testing::Test {};
  * @brief Test the constructor of the Config class.
  */
 TEST_F(configTest, constructor) {
-    EXPECT_NO_THROW(Config::getInstance());
+    EXPECT_NO_THROW(serif::config::Config::getInstance());
 }
 
 TEST_F(configTest, loadConfig) {
-    Config& config = Config::getInstance();
+    serif::config::Config& config = serif::config::Config::getInstance();
     EXPECT_TRUE(config.loadConfig(EXAMPLE_FILENAME));
 }
 
 TEST_F(configTest, singletonTest) {
-    Config& config1 = Config::getInstance();
-    Config& config2 = Config::getInstance();
+    serif::config::Config& config1 = serif::config::Config::getInstance();
+    serif::config::Config& config2 = serif::config::Config::getInstance();
     EXPECT_EQ(&config1, &config2);
 }
 
 TEST_F(configTest, getTest) {
-    Config& config = Config::getInstance();
+    serif::config::Config& config = serif::config::Config::getInstance();
     config.loadConfig(EXAMPLE_FILENAME);
     int maxIter = config.get<int>("opac:lowTemp:numeric:maxIter", 10);
     EXPECT_EQ(maxIter, 100);
@@ -82,19 +82,19 @@ TEST_F(configTest, getTest) {
 }
 
 TEST_F(configTest, secondSingletonTest) {
-    Config& config = Config::getInstance();
+    serif::config::Config& config = serif::config::Config::getInstance();
     EXPECT_EQ(config.get<int>("opac:lowTemp:numeric:maxIter", 10), 100);
 }
 
 TEST_F(configTest, isKeyInCacheTest) {
-    Config& config = Config::getInstance();
+    serif::config::Config& config = serif::config::Config::getInstance();
     config.loadConfig(EXAMPLE_FILENAME);
     EXPECT_TRUE(configTestPrivateAccessor::callIsKeyInCache(config, "opac:lowTemp:numeric:maxIter"));
     EXPECT_FALSE(configTestPrivateAccessor::callIsKeyInCache(config, "opac:lowTemp:numeric:maxIter2"));
 }
 
 TEST_F(configTest, cacheSize) {
-    Config& config = Config::getInstance();
+    serif::config::Config& config = serif::config::Config::getInstance();
     config.loadConfig(EXAMPLE_FILENAME);
     EXPECT_EQ(configTestPrivateAccessor::callCacheSize(config), 3);
     EXPECT_NE(configTestPrivateAccessor::callCacheSize(config), 4);
@@ -103,7 +103,7 @@ TEST_F(configTest, cacheSize) {
 }
 
 TEST_F(configTest, unknownKeyTest) {
-    Config& config = Config::getInstance();
+    serif::config::Config& config = serif::config::Config::getInstance();
     config.loadConfig(EXAMPLE_FILENAME);
     config.get<int>("opac:lowTemp:numeric:random", 10);
     EXPECT_FALSE(configTestPrivateAccessor::CheckIfKeyUnknown(config, "opac:lowTemp:numeric:maxIter"));

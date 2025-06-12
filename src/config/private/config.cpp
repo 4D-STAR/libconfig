@@ -2,7 +2,7 @@
 //
 //   Copyright (C) 2025 -- The 4D-STAR Collaboration
 //   File Author: Emily Boudreaux
-//   Last Modified: February 21, 2025
+//   Last Modified: March 20, 2025
 //
 //   4DSSE is free software; you can use it and/or modify
 //   it under the terms and restrictions the GNU General Library Public
@@ -28,6 +28,9 @@
 #include "yaml-cpp/yaml.h"
 
 #include "config.h"
+
+namespace serif {
+namespace config {
 
 Config::Config() {}
 
@@ -103,3 +106,6 @@ std::vector<std::string> Config::keys() const {
     recurse_keys(node, keyList);
     return keyList;
 }
+
+} // namespace config
+} // namespace serif

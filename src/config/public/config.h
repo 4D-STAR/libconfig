@@ -2,7 +2,7 @@
 //
 //   Copyright (C) 2025 -- The 4D-STAR Collaboration
 //   File Author: Emily Boudreaux
-//   Last Modified: February 20, 2025
+//   Last Modified: March 26, 2025
 //
 //   4DSSE is free software; you can use it and/or modify
 //   it under the terms and restrictions the GNU General Library Public
@@ -32,7 +32,11 @@
 #include "yaml-cpp/yaml.h"
 
 // -- Forward Def of Resource manager to let it act as a friend of Config --
-class ResourceManager;
+namespace serif { namespace resource { class ResourceManager; } } // Forward declaration
+class configTestPrivateAccessor; // Forward declaration for test utility
+
+namespace serif {
+namespace config {
 
 /**
  * @class Config
@@ -53,6 +57,7 @@ private:
    YAML::Node yamlRoot; ///< Root node of the YAML configuration.
    std::string configFilePath; ///< Path to the configuration file.
    bool debug = false; ///< Flag to enable debug output.
+   bool loaded = false; ///< Flag to indicate if the configuration has been loaded.
 
    std::map<std::string, YAML::Node> configMap; ///< Cache for the location of configuration settings.
    std::vector<std::string> unknownKeys; ///< Cache for the existence of configuration settings.
@@ -132,6 +137,12 @@ public:
     * @return True if the configuration was loaded successfully, false otherwise.
     */
    bool loadConfig(const std::string& configFilePath);
+
+   /**
+    * @brief Get the input table from the configuration.
+    * @return Input table as a string.
+    */
+   std::string getInputTable() const;
 
    /**
     * @brief Get a configuration value by key.
@@ -226,7 +237,10 @@ public:
    }
 
    // Setup gTest class as a friend
-   friend class configTestPrivateAccessor;
-   // --- Resource Manager is a friend of config so it can create a separate instance
-   friend class ResourceManager;
+   friend class ::configTestPrivateAccessor; // Friend declaration for global test accessor
+   // -- Resource Manager is a friend of config so it can create a seperate instance
+   friend class serif::resource::ResourceManager; // Adjusted friend declaration
 };
+
+} // namespace config
+} // namespace serif
