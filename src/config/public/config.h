@@ -32,11 +32,12 @@
 #include "yaml-cpp/yaml.h"
 
 // -- Forward Def of Resource manager to let it act as a friend of Config --
+// Note this is for SERiF development
 namespace serif::resource { class ResourceManager; }
 
 class configTestPrivateAccessor; // Forward declaration for test utility
 
-namespace serif::config {
+namespace fourdst::config {
 
    /**
  * @class Config

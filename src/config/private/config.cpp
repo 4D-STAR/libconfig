@@ -29,7 +29,7 @@
 
 #include "config.h"
 
-namespace serif::config {
+namespace fourdst::config {
 
     Config::Config() {}
 
