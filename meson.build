@@ -4,11 +4,11 @@
 #   File Author: Emily Boudreaux
 #   Last Modified: June 21, 2025
 #
-#   libconstants is free software; you can use it and/or modify
+#   libconfig is free software; you can use it and/or modify
 #   it under the terms and restrictions the GNU General Library Public
 #   License version 3 (GPLv3) as published by the Free Software Foundation.
 #
-#   libconstants is distributed in the hope that it will be useful,
+#   libconfig is distributed in the hope that it will be useful,
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #   See the GNU Library General Public License for more details.
@@ -18,7 +18,7 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #
 # *********************************************************************** #
-project('libconfig', 'cpp', version: 'v1.0.0', default_options: ['cpp_std=c++23'], meson_version: '>=1.5.0')
+project('libconfig', 'cpp', version: 'v1.0.3', default_options: ['cpp_std=c++23'], meson_version: '>=1.5.0')
 
 # Add default visibility for all C++ targets
 add_project_arguments('-fvisibility=default', language: 'cpp')
@@ -34,8 +34,8 @@ pkg.generate(
     description: 'Configuration module for SERiF and related projects',
     version: meson.project_version(),
     libraries: [libconfig],
-    subdirs: ['libconfig'],
-    filebase: 'libconfig',
+    subdirs: ['fourdst'],
+    filebase: 'fourdst_config',
     install_dir: join_paths(get_option('libdir'), 'pkgconfig')
 )
 
