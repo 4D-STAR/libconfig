@@ -23,4 +23,4 @@ config_dep = declare_dependency(
 )
 
 # Make headers accessible
-install_headers(config_headers, subdir : 'fourdst/config')
+install_headers(config_headers, subdir : 'fourdst/fourdst/config')
