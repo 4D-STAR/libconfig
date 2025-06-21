@@ -1,6 +1,6 @@
-# libconstants
+# libconfig
 
-libconstants is the authoritative source for physical constants for the SERiF project.
+libconfig is the unified configuration module for SERiF and related projects
 
 This has been broken out of the main serif project to allow for more modularity
 
@@ -19,5 +19,5 @@ meson compile -C build
 meson test -C build
 ```
 
-this will auto generate a pkg-config file for you so that linking other libraries to libconstants is easy.
+this will auto generate a pkg-config file for you so that linking other libraries to libconfig is easy.
 
