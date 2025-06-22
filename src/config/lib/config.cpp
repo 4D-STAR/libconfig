@@ -27,7 +27,7 @@
 
 #include "yaml-cpp/yaml.h"
 
-#include "config.h"
+#include "fourdst/config/config.h"
 
 namespace fourdst::config {
 

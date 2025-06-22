@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
-#include "config.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include <set>
 #include <sstream>
 #include <algorithm>
+
+#include "fourdst/config/config.h"
 
 std::string EXAMPLE_FILENAME = std::string(getenv("MESON_SOURCE_ROOT")) + "/tests/config/example.yaml";
 /**
