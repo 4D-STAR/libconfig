@@ -11,5 +11,7 @@ yaml_cpp_sp = cmake.subproject(
 )
 yaml_cpp_dep = yaml_cpp_sp.dependency('yaml-cpp')
 
-yaml_cpp_headers = meson.project_source_root() + '/subprojects/yaml-cpp/include/yaml-cpp'
+message('Registering yaml-cpp headers (' + meson.global_source_root() + '/subprojects/yaml-cpp/include/yaml-cpp) for installation...')
+yaml_cpp_headers = meson.global_source_root() + '/subprojects/yaml-cpp/include/yaml-cpp'
 install_subdir(yaml_cpp_headers, install_dir: get_option('includedir'))
+message('Done registering yaml-cpp headers for installation!')
