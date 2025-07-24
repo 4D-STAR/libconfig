@@ -3,7 +3,9 @@ yaml_cpp_cmake_options.add_cmake_defines({
  'CMAKE_POLICY_VERSION_MINIMUM': '3.5',
  'BUILD_SHARED_LIBS': 'ON',
  'CMAKE_SKIP_INSTALL_RULES': 'ON',
- 'YAML_CPP_BUILD_TESTS': 'OFF'
+ 'YAML_CPP_BUILD_TESTS': 'OFF',
+ 'CMAKE_CXX_FLAGS': '-Wno-shadow',
+ 'CMAKE_C_FLAGS':   '-Wno-shadow',
 })
 yaml_cpp_sp = cmake.subproject(
     'yaml-cpp',
