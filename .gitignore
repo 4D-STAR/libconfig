@@ -70,6 +70,7 @@ subprojects/hypre/
 subprojects/qhull/
 subprojects/libconstants/
 subprojects/liblogging/
+subprojects/packagecache/
 
 qhull.wrap
 
