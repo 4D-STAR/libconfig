@@ -71,6 +71,7 @@ subprojects/qhull/
 subprojects/libconstants/
 subprojects/liblogging/
 subprojects/packagecache/
+subprojects/glaze/
 
 qhull.wrap
 

@@ -1,35 +1,46 @@
 #include "fourdst/config/config.h"
+#include "glaze/glaze.hpp"
 #include <string>
 #include <vector>
-#include <iostream>
-#include <filesystem>
 
-std::string get_validated_filename(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << " <input_file>" << std::endl;
-        exit(1);
-    }
+using namespace fourdst::config;
 
-    std::filesystem::path const file_path{ argv[1] };
+struct sub {
+    double x;
+    double y;
+};
 
-    if (not std::filesystem::exists(file_path) || not std::filesystem::is_regular_file(file_path)) {
-        std::cout << "Error: File does not exist or is not a regular file." << std::endl;
-        exit(1);
-    }
+struct BoundaryConditions {
+    double pressure = 1e6;
+    sub sub;
+};
 
-    return file_path.string();
-}
+struct ExampleConfig  {
+    double parameterA = 1.0;
+    int parameterB = 1.0;
+    std::string parameterC = "default_value";
+    std::vector<double> parameterD = {0.1, 0.2, 0.3};
+    BoundaryConditions boundaryConditions;
+};
 
-int main(int argc, char* argv[]) {
-  fourdst::config::Config& config = fourdst::config::Config::getInstance();
+struct Person {
+    int age;
+    std::string name;
+};
 
-  std::string filename = get_validated_filename(argc, argv);
-  config.loadConfig(filename);
+struct AppConfig {
+    double x;
+    double y;
+    Person person;
+};
 
-  auto men = config.get<std::vector<std::string>>("men", {});
+int main() {
+    const Config<ExampleConfig> cfg;
+    cfg.save();
+    cfg.save_schema(".");
 
-  for (const auto& name : men) {
-    std::cout << "men are " << name << std::endl;
-  }
-
+    Config<AppConfig> loaded;
+    loaded.save_schema(".");
+    loaded.load("config_example.toml");
+    std::println("{}", loaded);
 }

@@ -2,18 +2,22 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <filesystem>
 
+struct AppConfig {
+    double x;
+    double y;
+    std::vector<std::string> men;
+};
 
 int main(int argc, char* argv[]) {
-  fourdst::config::Config& config = fourdst::config::Config::getInstance();
+    fourdst::config::Config<AppConfig> config;
+    config.load("/input.toml");
 
-  config.loadConfig("/input.yaml");
+    auto x = config->x;
+    const auto& men = config->men;
 
-  auto men = config.get<std::vector<std::string>>("men", {});
-
-  for (const auto& name : men) {
-    std::cout << "men are " << name << std::endl;
-  }
+    for (const auto& name : men) {
+        std::cout << "men are " << name << std::endl;
+    }
 
 }

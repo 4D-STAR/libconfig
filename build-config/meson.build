@@ -1,2 +1,2 @@
 cmake = import('cmake')
-subdir('yaml-cpp')
+subdir('glaze')
