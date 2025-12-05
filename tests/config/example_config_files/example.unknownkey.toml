@@ -1,0 +1,19 @@
+[main]
+description = "This is an example configuration file."
+autor = "Your Name"
+
+[main.physics]
+diffusion = true
+convection = false
+radiation = true
+flags = [1, 2, 3]
+
+[main.simulation]
+time_step = 0.01
+total_time = 100.0
+output_frequency = 10
+
+[main.output]
+format = "csv"
+directory = "results/"
+save_plots = true
