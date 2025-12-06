@@ -7,6 +7,7 @@ glaze_cmake_options.add_cmake_defines({
      'CMAKE_INSTALL_INCLUDEDIR': get_option('includedir'),
      'CMAKE_POSITION_INDEPENDENT_CODE': 'ON',
      'galze_BUILD_EXAMPLES': 'OFF',
+     'glaze_DEVELOPER_MODE': 'OFF',
  })
 
 glaze_sp = cmake.subproject(
