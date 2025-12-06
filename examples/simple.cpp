@@ -1,46 +1,37 @@
-#include "fourdst/config/config.h"
-#include "glaze/glaze.hpp"
+#include "rfl.hpp"
+#include "rfl/toml.hpp"
+
 #include <string>
 #include <vector>
+#include <print>
 
-using namespace fourdst::config;
+#include "fourdst/config/config.h"
 
-struct sub {
+struct Other {
+    std::array<int, 3> a{};
+    std::vector<std::string> b{};
+    double c;
+};
+
+struct Location {
     double x;
     double y;
-};
-
-struct BoundaryConditions {
-    double pressure = 1e6;
-    sub sub;
-};
-
-struct ExampleConfig  {
-    double parameterA = 1.0;
-    int parameterB = 1.0;
-    std::string parameterC = "default_value";
-    std::vector<double> parameterD = {0.1, 0.2, 0.3};
-    BoundaryConditions boundaryConditions;
+    Other other{};
 };
 
 struct Person {
-    int age;
-    std::string name;
-};
-
-struct AppConfig {
-    double x;
-    double y;
-    Person person;
+    std::string name{};
+    std::string address{};
+    double height{};
+    Location location{};
 };
 
 int main() {
-    const Config<ExampleConfig> cfg;
-    cfg.save();
-    cfg.save_schema(".");
+    const fourdst::config::Config<Person> personConfig;
+    personConfig.save("Example.toml");
 
-    Config<AppConfig> loaded;
-    loaded.save_schema(".");
-    loaded.load("config_example.toml");
-    std::println("{}", loaded);
+    fourdst::config::Config<Person> personConfigToLoad;
+    personConfigToLoad.load("Example.toml");
+
+    personConfigToLoad.save_schema("ExampleSchema.schema.json");
 }

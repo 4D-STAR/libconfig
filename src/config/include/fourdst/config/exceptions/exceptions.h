@@ -6,9 +6,9 @@
 namespace fourdst::config::exceptions {
     class ConfigError : public std::exception {
     public:
-        ConfigError(const std::string & what): m_msg(what) {}
+        explicit ConfigError(const std::string & what): m_msg(what) {}
 
-        const char* what() const noexcept override {
+        [[nodiscard]] const char* what() const noexcept override {
             return m_msg.c_str();
         }
     private:
@@ -27,12 +27,9 @@ namespace fourdst::config::exceptions {
         using ConfigError::ConfigError;
     };
 
-    class SchemaGenerationError final : public ConfigError {
+    class SchemaSaveError final : public ConfigError {
         using ConfigError::ConfigError;
     };
 
-    class SchemaNameError final : public ConfigError {
-        using ConfigError::ConfigError;
-    };
 
 }

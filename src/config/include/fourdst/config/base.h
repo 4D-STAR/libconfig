@@ -1,53 +1,22 @@
 #pragma once
 #include <filesystem>
-#include "glaze/toml.hpp"
 #include <string>
 #include <map>
 #include <optional>
+#include <format>
 
-#include "fourdst/config/registry.h"
 #include "fourdst/config/exceptions/exceptions.h"
 
-namespace fourdst::config::utils {
-    inline std::string extract_error_key(const std::string& buffer, const glz::error_ctx& pe) {
-        if (pe.location >= buffer.size()) return "unknown";
-
-        size_t line_start = pe.location;
-        while (line_start > 0 && buffer[line_start - 1] != '\n') {
-            line_start--;
-        }
-
-        size_t line_end = pe.location;
-        while (line_end < buffer.size() && buffer[line_end] != '\n' && buffer[line_end] != '\r') {
-            line_end++;
-        }
-
-        std::string line = buffer.substr(line_start, line_end - line_start);
-
-        const size_t separator_pos = line.find_first_of("=:");
-
-        if (separator_pos != std::string::npos) {
-            std::string key_part = line.substr(0, separator_pos);
-
-            while (!key_part.empty() && std::isspace(key_part.back())) {
-                key_part.pop_back();
-            }
-
-            size_t first_char = 0;
-            while (first_char < key_part.size() && std::isspace(key_part[first_char])) {
-                first_char++;
-            }
-
-            if (first_char < key_part.size()) {
-                return key_part.substr(first_char);
-            }
-        }
-
-        return line;
-    }
-}
+#include "rfl.hpp"
+#include "rfl/toml.hpp"
+#include "rfl/json.hpp"
 
 namespace fourdst::config {
+    enum class RootNameLoadPolicy {
+        FROM_FILE,
+        KEEP_CURRENT
+    };
+
     enum class ConfigState {
         DEFAULT,
         LOADED_FROM_FILE
@@ -56,66 +25,110 @@ namespace fourdst::config {
     template <typename T>
     class Config {
     public:
-        Config() {
-            (void)m_registrar;
+        Config() = default;
+        const T* operator->() const { return &m_content; }
+        const T& main() const { return m_content; }
+
+        void save(std::string_view path) const {
+            T default_instance{};
+            std::unordered_map<std::string, T> wrapper;
+            wrapper[m_root_name] = m_content;
+            const std::string toml_string = rfl::toml::write(wrapper);
+
+            std::ofstream ofs{std::string(path)};
+            if (!ofs.is_open()) {
+                throw exceptions::ConfigSaveError(
+                    std::format("Failed to open file for writing config: {}", path)
+                );
+            }
+
+            ofs << toml_string;
+            ofs.close();
         }
 
-        const T* operator->() const { return &m_content.main; }
-        const T& main() const { return m_content.main; }
+        void set_root_name(const std::string_view name) {
+            m_root_name = name;
+        }
 
-        void save(std::optional<std::string_view> path = std::nullopt) const {
-            if (!path) {
-                path = std::string(glz::name_v<T>) + ".toml";
-            }
-            auto err = glz::write_file_toml(m_content, path.value(), std::string{});
-            if (err) {
-                throw exceptions::ConfigSaveError(
-                    std::format(
-                        "Config::save: Failed to save config to {} with glaze error {} ",
-                        std::string(path.value()),
-                        glz::format_error(err.ec)
-                        )
-                );
+        [[nodiscard]] std::string_view get_root_name() const {
+            return m_root_name;
+        }
+
+        void set_root_name_load_policy(const RootNameLoadPolicy policy) {
+            m_root_name_load_policy = policy;
+        }
+
+        RootNameLoadPolicy get_root_name_load_policy() const {
+            return m_root_name_load_policy;
+        }
+
+        std::string describe_root_name_load_policy() const {
+            switch (m_root_name_load_policy) {
+                case RootNameLoadPolicy::FROM_FILE:
+                    return "FROM_FILE";
+                case RootNameLoadPolicy::KEEP_CURRENT:
+                    return "KEEP_CURRENT";
+                default:
+                    return "UNKNOWN";
             }
         }
 
         void load(const std::string_view path) {
-            std::string buffer;
-            const auto ec = glz::file_to_buffer(buffer, path);
-            if (ec != glz::error_code::none) {
+            if (m_state == ConfigState::LOADED_FROM_FILE) {
+                throw exceptions::ConfigLoadError(
+                    "Config has already been loaded from file. Reloading is not supported.");
+            }
+
+            if (!std::filesystem::exists(path)) {
+                throw exceptions::ConfigLoadError(
+                    std::format("Config file does not exist: {}", path));
+            }
+
+            using wrapper = std::unordered_map<std::string, T>;
+            const rfl::Result<wrapper> result = rfl::toml::load<wrapper>(std::string(path));
+
+            if (!result) {
+                throw exceptions::ConfigParseError(
+                    std::format("Failed to load config from file: {}", path));
+            }
+
+
+            std::string loaded_root_name = result.value().begin()->first;
+
+            if (m_root_name_load_policy == RootNameLoadPolicy::KEEP_CURRENT && m_root_name != loaded_root_name) {
                 throw exceptions::ConfigLoadError(
                     std::format(
-                        "Config::load: Failed to load config from {} with glaze error {} ",
-                        std::string(path),
-                        glz::format_error(ec)
+                        "Root name mismatch when loading config from file. Current root name is '{}', but file root name is '{}'. If you want to use the root name from the file, set the root name load policy to FROM_FILE using set_root_name_load_policy().",
+                        m_root_name,
+                        loaded_root_name
                     )
                 );
             }
-            auto err = glz::read<
-                glz::opts{
-                    .format = glz::TOML,
-                    .error_on_unknown_keys = true
-                }>(m_content, buffer);
-            if (err) {
-                throw exceptions::ConfigParseError(
-                    std::format(
-                        "Config::load: Failed to parse config from {} with glaze error {} (Key: {}) ",
-                        std::string(path),
-                        glz::format_error(err.ec),
-                        utils::extract_error_key(buffer, err)
-                    )
-                );
-            }
+            m_root_name = loaded_root_name;
+
+            m_content = result.value().at(loaded_root_name);
+
             m_state = ConfigState::LOADED_FROM_FILE;
         }
 
-        void save_schema(const std::string_view dir) const {
-            Registry::generate_named(dir, std::string(glz::name_v<T>));
+        static void save_schema(const std::string& path) {
+            using wrapper = std::unordered_map<std::string, T>;
+            const std::string json_schema = rfl::json::to_schema<wrapper>(rfl::json::pretty);
+
+            std::ofstream ofs{std::string(path)};
+            if (!ofs.is_open()) {
+                throw exceptions::SchemaSaveError(
+                    std::format("Failed to open file for writing schema: {}", path)
+                );
+            }
+
+            ofs << json_schema;
+            ofs.close();
         }
 
-        ConfigState get_state() const { return m_state; }
+        [[nodiscard]] ConfigState get_state() const { return m_state; }
 
-        std::string describe_state() const {
+        [[nodiscard]] std::string describe_state() const {
             switch (m_state) {
                 case ConfigState::DEFAULT:
                     return "DEFAULT";
@@ -127,20 +140,10 @@ namespace fourdst::config {
         }
 
     private:
-        struct Content {
-            T main;
-        };
-        Content m_content;
+        T m_content;
+        std::string m_root_name = "main";
         ConfigState m_state = ConfigState::DEFAULT;
-
-
-        struct Registrar {
-            Registrar() {
-                const auto name = std::string(glz::name_v<T>);
-                Registry::register_schema<Content>(name);
-            }
-        };
-        static inline Registrar m_registrar;
+        RootNameLoadPolicy m_root_name_load_policy = RootNameLoadPolicy::KEEP_CURRENT;
     };
 }
 
@@ -151,16 +154,9 @@ struct std::formatter<fourdst::config::Config<T>, CharT> {
 
     auto format(const fourdst::config::Config<T>& config, auto& ctx) const {
         const T& inner_value = config.main();
-        struct Content {
-            T main;
-        };
-        Content content{inner_value};
+        std::map<std::string, T> wrapper;
+        wrapper[std::string(config.get_root_name())] = inner_value;
         std::string buffer;
-        const glz::error_ctx ec = glz::write<glz::opts{.format=glz::TOML, .prettify = true}>(content, buffer);
-        if (ec) {
-            return std::format_to(ctx.out(), "Error serializing config");
-        }
-
-        return std::format_to(ctx.out(), "{}", buffer);
+        return buffer;
     }
 };

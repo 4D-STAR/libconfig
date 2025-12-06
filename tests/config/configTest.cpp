@@ -122,12 +122,12 @@ TEST_F(configTest, string_values) {
 
 TEST_F(configTest, save_default) {
     using namespace fourdst::config;
-    const Config<TestConfigSchema> cfg;
+    Config<TestConfigSchema> cfg;
     EXPECT_NO_THROW(cfg.save("TestConfigSchema.toml"));
 }
 
 TEST_F(configTest, save_schema) {
     using namespace fourdst::config;
-    const Config<TestConfigSchema> cfg;
-    EXPECT_NO_THROW(cfg.save_schema("./"));
+    Config<TestConfigSchema> cfg;
+    EXPECT_NO_THROW(cfg.save_schema("TestConfigSchema.schema.json"));
 }

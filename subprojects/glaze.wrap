@@ -1,5 +1,0 @@
-[wrap-git]
-url = https://github.com/stephenberry/glaze.git
-revision = v6.1.0
-
-[cmake]
