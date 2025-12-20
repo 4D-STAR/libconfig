@@ -21,7 +21,7 @@ reflect_cpp_library = static_library(
     'reflect_cpp',
     reflect_cpp_sources,
     include_directories: reflect_cpp_include_dirs,
-    install: true,
+    install: false,
     dependencies: [tomlpp_dep],
 )
 
