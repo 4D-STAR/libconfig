@@ -1,4 +1,4 @@
-tomlpp_dep = dependency('tomlplusplus', required: true).as_system()
+tomlpp_dep = dependency('tomlplusplus', required: true, static: true).as_system()
 
 reflect_cpp_sources = files(
     'src/yyjson.c',
