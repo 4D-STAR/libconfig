@@ -1,4 +1,5 @@
 # Test files for const
+threads_dep = dependency('threads')
 test_sources = [
     'configTest.cpp',
 ]
@@ -11,7 +12,7 @@ foreach test_file : test_sources
   test_exe = executable(
       exe_name,
       test_file,
-      dependencies: [gtest_dep, config_dep, gtest_main],
+      dependencies: [gtest_dep, config_dep, gtest_main, threads_dep],
       install_rpath: '@loader_path/../../src'  # Ensure runtime library path resolves correctly
   )
 
