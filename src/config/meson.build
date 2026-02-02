@@ -7,5 +7,6 @@ config_headers = files(
   'include/fourdst/config/config.h',
   'include/fourdst/config/exceptions/exceptions.h',
   'include/fourdst/config/base.h',
+  'include/fourdst/config/cli.h'
 )
 install_headers(config_headers, subdir : 'fourdst/fourdst/config')
