@@ -1,0 +1,11 @@
+<map id="src/config/include/fourdst/config/exceptions/exceptions.h" name="src/config/include/fourdst/config/exceptions/exceptions.h">
+<area shape="rect" id="Node000001" title="Exception classes for the configuration library." alt="" coords="84,5,256,61"/>
+<area shape="rect" id="Node000002" href="$base_8h.html" title="Core configuration management classes and concepts." alt="" coords="42,109,189,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,76,129,110,124,107,144,73"/>
+<area shape="rect" id="Node000004" href="$config_8h.html" title="Main entry point for the fourdst::config library." alt="" coords="98,286,253,327"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="193,75,203,108,208,159,203,208,185,286,180,285,198,208,202,159,198,110,188,76"/>
+<area shape="rect" id="Node000003" href="$cli_8h.html" title="Integration layer between libconfig and CLI applications." alt="" coords="5,198,138,238"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,165,84,198,79,196,96,163"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="137,162,153,197,167,244,175,285,170,286,161,245,148,199,132,164"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="108,246,154,284,150,288,105,250"/>
+</map>

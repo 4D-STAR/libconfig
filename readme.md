@@ -6,13 +6,13 @@ libconfig is the unified configuration module for SERiF and related projects
 This has been broken out of the main serif project to allow for more modularity
 
 ## Building
-In order to build libconstants you need `meson>=1.5.0`. This can be installed with `pip`
+In order to build libconfig you need `meson>=1.5.0`. This can be installed with `pip`
 
 ```bash
 pip install "meson>=1.5.0"
 ```
 
-Then from the root libconstants directory it is as simple as
+Then from the root libconfig directory it is as simple as
 
 ```bash
 meson setup build --buildtype=release
@@ -23,13 +23,16 @@ meson test -C build
 this will auto generate a pkg-config file for you so that linking other libraries to libconfig is easy.
 
 ## Usage
-libconfig makes use of [glaze](https://github.com/stephenberry/glaze?tab=readme-ov-file) to provide compile time reflection
+libconfig makes use of [reflect-cpp](https://github.com/getml/reflect-cpp) to provide compile time reflection
 and serialization/deserialization of configuration structs. This allows for config options to be defined in code
 and strongly typed.
+
+### Basic Usage
 
 ```c++
 #include "fourdst/config/config.h"
 #include <string>
+#include <print>
 
 struct MyPhysicsOptions {
     int gravity = 10;
@@ -54,17 +57,45 @@ int main() {
     // You can save the default config to a file
     cfg.save("default_config.toml");
     
-    // If you do not provide a name, glaze will use the struct's name
-    cfg.save(); // saves to MySimulationConfig.toml
-    
     // You can save the json schema for the config
-    cfg.save_schema("."); // Here you must provide the directory to save to rather than a full file name
+    // This allows editors like VS Code to provide autocompletion
+    fourdst::config::Config<MySimulationConfig>::save_schema("config.schema.json");
     
     // You can load a config from a file
-    cfg.load("my_config.toml");
+    try {
+        cfg.load("my_config.toml");
+    } catch (const fourdst::config::exceptions::ConfigError& e) {
+        std::println("Error loading config: {}", e.what());
+    }
     
-    // You can accesss the config values
+    // You can access the config values
     std::println("My Simulation Name: {}, My Simulation Gravity: {}", cfg->name, cfg->physics.gravity);
+}
+```
+
+### CLI Integration
+libconfig integrates with [CLI11](https://github.com/CLIUtils/CLI11) to automatically expose configuration fields as command-line arguments.
+
+```c++
+#include "CLI/CLI.hpp"
+#include "fourdst/config/config.h"
+
+int main(int argc, char** argv) {
+    fourdst::config::Config<MySimulationConfig> cfg;
+    CLI::App app("My Application");
+
+    // Automatically registers:
+    // --name
+    // --physics.gravity
+    // --physics.friction
+    // --physics.enable_wind
+    // ... and so on
+    fourdst::config::register_as_cli(cfg, app);
+
+    CLI11_PARSE(app, argc, argv);
+    
+    // cfg is now populated with values from CLI arguments
+    return 0;
 }
 ```
 

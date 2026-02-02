@@ -1,0 +1,8 @@
+<map id="src/config/include/fourdst/config/base.h" name="src/config/include/fourdst/config/base.h">
+<area shape="rect" id="Node000001" title="Core configuration management classes and concepts." alt="" coords="50,5,197,46"/>
+<area shape="rect" id="Node000002" href="$cli_8h.html" title="Integration layer between libconfig and CLI applications." alt="" coords="5,94,138,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,61,86,95,81,92,102,58"/>
+<area shape="rect" id="Node000003" href="$config_8h.html" title="Main entry point for the fourdst::config library." alt="" coords="46,183,201,223"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="142,59,153,93,155,114,153,135,136,183,131,181,148,134,150,114,148,95,137,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,147,114,181,109,184,89,149"/>
+</map>

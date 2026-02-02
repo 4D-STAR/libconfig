@@ -1,0 +1,32 @@
+<map id="src/config/include/fourdst/config/cli.h" name="src/config/include/fourdst/config/cli.h">
+<area shape="rect" id="Node000001" title="Integration layer between libconfig and CLI applications." alt="" coords="382,5,514,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,175,88,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="400,49,92,172,90,167,398,44"/>
+<area shape="rect" id="Node000003" href="$base_8h.html" title="Core configuration management classes and concepts." alt="" coords="376,94,520,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="450,46,450,78,445,78,445,46"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1023,175,1080,201"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="515,37,737,86,875,122,1011,165,1015,166,1013,171,1010,170,873,127,736,91,514,42"/>
+<area shape="poly" id="edge9_Node000003_Node000002" title=" " alt="" coords="376,119,246,139,99,170,92,172,90,167,98,165,245,134,375,114"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="111,175,192,201"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="397,123,213,170,204,173,202,168,211,165,395,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="392,256,445,282"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="376,113,344,119,311,130,282,146,258,169,251,188,258,207,282,231,313,247,346,257,377,263,376,268,345,263,311,252,279,235,254,210,245,188,254,166,279,142,309,125,342,114,375,108"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="267,175,314,201"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="423,123,327,170,324,165,421,118"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="337,175,396,201"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="437,122,392,166,388,162,434,118"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="419,175,476,201"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="450,120,450,159,445,159,445,120"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="500,175,588,201"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="464,118,519,163,516,167,461,122"/>
+<area shape="rect" id="Node000010" href="$exceptions_8h.html" title="Exception classes for the configuration library." alt="" coords="612,168,780,208"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="487,118,620,160,619,165,485,123"/>
+<area shape="poly" id="edge13_Node000003_Node000012" title=" " alt="" coords="520,106,618,109,742,118,877,136,1011,165,1016,167,1014,172,1010,170,876,141,741,124,618,114,520,111"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="803,175,890,201"/>
+<area shape="poly" id="edge14_Node000003_Node000013" title=" " alt="" coords="520,115,648,134,792,165,801,167,799,172,791,170,647,140,520,120"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="913,175,998,201"/>
+<area shape="poly" id="edge15_Node000003_Node000014" title=" " alt="" coords="520,110,695,129,799,144,902,165,911,167,909,173,901,170,798,150,694,134,520,116"/>
+<area shape="poly" id="edge12_Node000010_Node000005" title=" " alt="" coords="627,212,461,259,459,254,626,206"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="657,256,735,282"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="698,209,698,241,693,241,693,209"/>
+</map>
