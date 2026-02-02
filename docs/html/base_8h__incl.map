@@ -1,0 +1,28 @@
+<map id="src/config/include/fourdst/config/base.h" name="src/config/include/fourdst/config/base.h">
+<area shape="rect" id="Node000001" title="Core configuration management classes and concepts." alt="" coords="364,5,512,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,87,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="365,42,243,65,107,97,97,99,96,94,105,91,242,60,364,37"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="339,183,393,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="364,37,302,45,239,57,185,74,165,84,152,96,143,116,148,133,165,147,191,160,258,178,324,188,324,193,257,183,189,165,162,152,143,136,137,116,148,92,162,80,183,69,238,52,302,40,364,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="162,102,208,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="365,48,294,69,220,96,220,97,218,92,218,92,292,64,363,43"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="232,102,290,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="399,49,300,97,298,92,397,44"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="313,102,371,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="418,49,368,93,365,89,414,45"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="394,102,482,127"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="441,47,441,86,435,86,435,47"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="506,102,588,127"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="464,44,522,90,519,94,461,49"/>
+<area shape="rect" id="Node000009" href="$exceptions_8h.html" title="Exception classes for the configuration library." alt="" coords="613,94,780,135"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="498,44,624,86,623,91,496,49"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="804,102,861,127"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="512,33,645,54,720,71,793,91,797,93,795,98,792,97,719,76,644,59,512,38"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="886,102,972,127"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="512,32,679,53,777,70,875,91,883,94,882,99,873,97,776,75,678,59,512,37"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="995,102,1081,127"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="512,28,725,48,855,66,984,91,993,94,992,99,983,97,854,72,725,53,512,34"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="615,138,409,187,407,182,613,133"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="658,183,736,208"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="699,135,699,167,694,167,694,135"/>
+</map>

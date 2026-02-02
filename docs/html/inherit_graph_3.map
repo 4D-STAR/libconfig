@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,82,113,107"/>
+<area shape="rect" id="Node000001" href="$structfourdst_1_1config_1_1is__config__wrapper_3_01_config_3_01_t_01_4_01_4.html" title="Specialization of is_config_wrapper for Config&lt;T&gt;." alt="" coords="161,5,327,61"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="114,74,159,58,161,63,115,79"/>
+<area shape="rect" id="Node000003" href="$structfourdst_1_1config_1_1is__config__wrapper.html" title="Type trait to determine if a type is a Config wrapper." alt="" coords="170,85,318,126"/>
+<area shape="poly" id="edge7_Node000000_Node000003" title=" " alt="" coords="128,96,169,98,169,104,128,101"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8,20,110,46"/>
+<area shape="poly" id="edge8_Node000002_Node000001" title=" " alt="" coords="125,30,160,30,160,36,125,36"/>
+</map>

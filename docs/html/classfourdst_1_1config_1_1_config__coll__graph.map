@@ -1,0 +1,9 @@
+<map id="fourdst::config::Config&lt; T &gt;" name="fourdst::config::Config&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Wrapper class for managing strongly&#45;typed configuration structures." alt="" coords="5,184,188,210"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="29,95,68,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,136,53,159,62,171,75,181,71,185,58,175,48,161,43,137"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="105,95,184,121"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,136,105,185,101,182,128,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="82,5,207,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,61,147,95,142,95,142,61"/>
+</map>

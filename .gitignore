@@ -73,6 +73,7 @@ subprojects/liblogging/
 subprojects/packagecache/
 subprojects/glaze/
 subprojects/tomlplusplus-*/
+subprojects/CLI11-*/
 
 qhull.wrap
 
