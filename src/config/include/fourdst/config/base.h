@@ -166,7 +166,7 @@ namespace fourdst::config {
          * @endcode
          */
         void save(std::string_view path) const {
-            T default_instance{};
+            [[maybe_unused]] T default_instance{};
             std::unordered_map<std::string, T> wrapper;
             wrapper[m_root_name] = m_content;
             const std::string toml_string = rfl::toml::write(wrapper);
