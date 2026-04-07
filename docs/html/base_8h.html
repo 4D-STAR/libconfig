@@ -31,7 +31,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.1.0</span>
+   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.2.0</span>
    </div>
    <div id="projectbrief">Reflection based C++ configuration library</div>
   </td>
@@ -119,14 +119,16 @@ $(function(){initNavTree('base_8h.html',''); initResizable(true); });
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 <code>#include &quot;<a class="el" href="exceptions_8h.html">fourdst/config/exceptions/exceptions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="validate_8h.html">fourdst/config/validate.h</a>&quot;</code><br />
 <code>#include &quot;rfl.hpp&quot;</code><br />
 <code>#include &quot;rfl/toml.hpp&quot;</code><br />
 <code>#include &quot;rfl/json.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for base.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="base_8h__incl.svg" width="100%" height="460"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="base_8h__incl.svg" width="100%" height="516"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -165,6 +167,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:a9870cefcd568dac301257ca35b73ab14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18da8b2ec98ddd0a28e61644ce795b7e" id="r_a18da8b2ec98ddd0a28e61644ce795b7e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7e">fourdst::config::ConfigState</a> { <a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7ea5b39c8b553c821e7cddc6da64b5bd2ee">fourdst::config::DEFAULT</a>
 , <a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7eac24435b28cc6d977d5d7804236dca3db">fourdst::config::LOADED_FROM_FILE</a>
+, <a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7ea40e3819215b52841e19a7cac06b5f065">fourdst::config::MODIFIED</a>
  }</td></tr>
 <tr class="memdesc:a18da8b2ec98ddd0a28e61644ce795b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the current state of a Config object.  <a href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7e">More...</a><br /></td></tr>
 <tr class="separator:a18da8b2ec98ddd0a28e61644ce795b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>

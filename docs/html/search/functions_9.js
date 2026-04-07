@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['save_0',['save',['../classfourdst_1_1config_1_1_config.html#a91fa54016e231a8361142b51807f047d',1,'fourdst::config::Config']]],
-  ['save_5fschema_1',['save_schema',['../classfourdst_1_1config_1_1_config.html#ae698328f4cf5b175bf113b0d8dbc7937',1,'fourdst::config::Config']]],
-  ['set_5froot_5fname_2',['set_root_name',['../classfourdst_1_1config_1_1_config.html#a65d0b3c0a7063f6f56f6cde4700ad312',1,'fourdst::config::Config']]],
-  ['set_5froot_5fname_5fload_5fpolicy_3',['set_root_name_load_policy',['../classfourdst_1_1config_1_1_config.html#a2a106d63f18536ad950b325a0acd4a5f',1,'fourdst::config::Config']]]
+  ['register_5fas_5fcli_0',['register_as_cli',['../namespacefourdst_1_1config.html#aeca53bef637c1b60bf5fbccc8526a7a0',1,'fourdst::config']]],
+  ['report_5fall_5fmissing_5ffields_1',['report_all_missing_fields',['../namespacefourdst_1_1config_1_1validate.html#aaeda2c3411ab3c396a8fd1aa5e891fd3',1,'fourdst::config::validate']]],
+  ['reset_2',['reset',['../classfourdst_1_1config_1_1_config.html#a8f0ae5e8f5ebff21c94ed40986f8802f',1,'fourdst::config::Config']]]
 ];

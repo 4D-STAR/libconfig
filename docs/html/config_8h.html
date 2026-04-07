@@ -31,7 +31,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.1.0</span>
+   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.2.0</span>
    </div>
    <div id="projectbrief">Reflection based C++ configuration library</div>
   </td>
@@ -113,7 +113,7 @@ $(function(){initNavTree('config_8h.html',''); initResizable(true); });
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for config.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="config_8h__incl.svg" width="100%" height="571"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="config_8h__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main entry point for the <a class="el" href="namespacefourdst_1_1config.html">fourdst::config</a> library. </p>
@@ -151,11 +151,11 @@ Features</h1>
 <div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a91fa54016e231a8361142b51807f047d">save</a>(<span class="stringliteral">&quot;config.toml&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Load from file</span></div>
-<div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#ae0097a0c728ad24a5d03f9a8580eac74">load</a>(<span class="stringliteral">&quot;config.toml&quot;</span>);</div>
+<div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a6d51abcf7ab58a3e7a696817871916e9">load</a>(<span class="stringliteral">&quot;config.toml&quot;</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:113</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a91fa54016e231a8361142b51807f047d"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a91fa54016e231a8361142b51807f047d">fourdst::config::Config::save</a></div><div class="ttdeci">void save(std::string_view path) const</div><div class="ttdoc">Saves the current configuration to a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:164</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae0097a0c728ad24a5d03f9a8580eac74"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#ae0097a0c728ad24a5d03f9a8580eac74">fourdst::config::Config::load</a></div><div class="ttdeci">void load(const std::string_view path)</div><div class="ttdoc">Loads configuration from a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:249</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:117</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a6d51abcf7ab58a3e7a696817871916e9"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a6d51abcf7ab58a3e7a696817871916e9">fourdst::config::Config::load</a></div><div class="ttdeci">void load(const std::string_view path, const bool verbose=false)</div><div class="ttdoc">Loads configuration from a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:253</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a91fa54016e231a8361142b51807f047d"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a91fa54016e231a8361142b51807f047d">fourdst::config::Config::save</a></div><div class="ttdeci">void save(std::string_view path) const</div><div class="ttdoc">Saves the current configuration to a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:168</div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Main entry point for the fourdst::config library.</div></div>
 </div><!-- fragment --><p><b>2. CLI Integration (CLI11)</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;CLI/CLI.hpp&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">fourdst/config/config.h</a>&quot;</span></div>
@@ -173,7 +173,7 @@ Features</h1>
 <div class="line">}</div>
 <div class="ttc" id="anamespacefourdst_1_1config_html_aeca53bef637c1b60bf5fbccc8526a7a0"><div class="ttname"><a href="namespacefourdst_1_1config.html#aeca53bef637c1b60bf5fbccc8526a7a0">fourdst::config::register_as_cli</a></div><div class="ttdeci">void register_as_cli(T &amp;config, CliApp &amp;app, const std::string &amp;prefix=&quot;&quot;)</div><div class="ttdoc">Registers configuration structure fields as CLI options.</div><div class="ttdef"><b>Definition</b> cli.h:114</div></div>
 </div><!-- fragment --><p><b>3. Error Handling</b> </p><div class="fragment"><div class="line"><span class="keywordflow">try</span> {</div>
-<div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#ae0097a0c728ad24a5d03f9a8580eac74">load</a>(<span class="stringliteral">&quot;missing_file.toml&quot;</span>);</div>
+<div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a6d51abcf7ab58a3e7a696817871916e9">load</a>(<span class="stringliteral">&quot;missing_file.toml&quot;</span>);</div>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classfourdst_1_1config_1_1exceptions_1_1_config_load_error.html">fourdst::config::exceptions::ConfigLoadError</a>&amp; e) {</div>
 <div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Could not load config: &quot;</span> &lt;&lt; e.<a class="code hl_function" href="classfourdst_1_1config_1_1exceptions_1_1_config_error.html#aed6ae63fbbc9cb7e1d372904638b1fe6">what</a>() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">    <span class="comment">// Falls back to default values</span></div>

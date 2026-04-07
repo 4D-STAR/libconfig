@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['register_5fas_5fcli_0',['register_as_cli',['../namespacefourdst_1_1config.html#aeca53bef637c1b60bf5fbccc8526a7a0',1,'fourdst::config']]]
+  ['parse_0',['parse',['../structstd_1_1formatter_3_01fourdst_1_1config_1_1_config_3_01_t_01_4_00_01_char_t_01_4.html#af75b2ed67fc214c6b8a0bf5d98a39a39',1,'std::formatter&lt; fourdst::config::Config&lt; T &gt;, CharT &gt;']]],
+  ['print_5fmissing_5ffield_5ftree_1',['print_missing_field_tree',['../namespacefourdst_1_1config_1_1validate.html#afe1a403fd06acae5fd26e9e08d75f94c',1,'fourdst::config::validate']]]
 ];

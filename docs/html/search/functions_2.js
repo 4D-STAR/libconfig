@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['format_0',['format',['../structstd_1_1formatter_3_01fourdst_1_1config_1_1_config_3_01_t_01_4_00_01_char_t_01_4.html#a57d80d0697b40109246ce480927b38dd',1,'std::formatter&lt; fourdst::config::Config&lt; T &gt;, CharT &gt;']]]
+  ['describe_5froot_5fname_5fload_5fpolicy_0',['describe_root_name_load_policy',['../classfourdst_1_1config_1_1_config.html#ac9a325e3b1eaf06d137d91dac9f62b77',1,'fourdst::config::Config']]],
+  ['describe_5fstate_1',['describe_state',['../classfourdst_1_1config_1_1_config.html#a173250f83357b28ab7a5e718581ac7e3',1,'fourdst::config::Config']]]
 ];

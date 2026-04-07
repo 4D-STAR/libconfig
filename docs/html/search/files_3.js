@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logo_2epng_0',['Logo.png',['../_logo_8png.html',1,'']]]
+  ['exceptions_2eh_0',['exceptions.h',['../exceptions_8h.html',1,'']]]
 ];

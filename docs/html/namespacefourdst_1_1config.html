@@ -31,7 +31,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.1.0</span>
+   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.2.0</span>
    </div>
    <div id="projectbrief">Reflection based C++ configuration library</div>
   </td>
@@ -115,6 +115,10 @@ $(function(){initNavTree('namespacefourdst_1_1config.html',''); initResizable(tr
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefourdst_1_1config_1_1exceptions.html">exceptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefourdst_1_1config_1_1utils.html">utils</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefourdst_1_1config_1_1validate.html">validate</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -148,6 +152,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:a9870cefcd568dac301257ca35b73ab14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18da8b2ec98ddd0a28e61644ce795b7e" id="r_a18da8b2ec98ddd0a28e61644ce795b7e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18da8b2ec98ddd0a28e61644ce795b7e">ConfigState</a> { <a class="el" href="#a18da8b2ec98ddd0a28e61644ce795b7ea5b39c8b553c821e7cddc6da64b5bd2ee">DEFAULT</a>
 , <a class="el" href="#a18da8b2ec98ddd0a28e61644ce795b7eac24435b28cc6d977d5d7804236dca3db">LOADED_FROM_FILE</a>
+, <a class="el" href="#a18da8b2ec98ddd0a28e61644ce795b7ea40e3819215b52841e19a7cac06b5f065">MODIFIED</a>
  }</td></tr>
 <tr class="memdesc:a18da8b2ec98ddd0a28e61644ce795b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the current state of a Config object.  <a href="#a18da8b2ec98ddd0a28e61644ce795b7e">More...</a><br /></td></tr>
 <tr class="separator:a18da8b2ec98ddd0a28e61644ce795b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,6 +191,7 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a18da8b2ec98ddd0a28e61644ce795b7eac24435b28cc6d977d5d7804236dca3db" name="a18da8b2ec98ddd0a28e61644ce795b7eac24435b28cc6d977d5d7804236dca3db"></a>LOADED_FROM_FILE&#160;</td><td class="fielddoc"><p>Configuration has been successfully populated from a file. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a18da8b2ec98ddd0a28e61644ce795b7ea40e3819215b52841e19a7cac06b5f065" name="a18da8b2ec98ddd0a28e61644ce795b7ea40e3819215b52841e19a7cac06b5f065"></a>MODIFIED&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -286,7 +292,7 @@ template&lt;typename T, typename CliApp&gt; </div>
 <div class="line">    <span class="comment">// cfg is now populated with values from CLI</span></div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:113</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:117</div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Main entry point for the fourdst::config library.</div></div>
 <div class="ttc" id="anamespacefourdst_1_1config_html_aeca53bef637c1b60bf5fbccc8526a7a0"><div class="ttname"><a href="#aeca53bef637c1b60bf5fbccc8526a7a0">fourdst::config::register_as_cli</a></div><div class="ttdeci">void register_as_cli(T &amp;config, CliApp &amp;app, const std::string &amp;prefix=&quot;&quot;)</div><div class="ttdoc">Registers configuration structure fields as CLI options.</div><div class="ttdef"><b>Definition</b> cli.h:114</div></div>
 </div><!-- fragment --></dd></dl>
