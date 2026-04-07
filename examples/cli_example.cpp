@@ -25,7 +25,7 @@ int main(const int argc, char** argv) {
 
     fourdst::config::register_as_cli(config, app, "cfg");
 
-    app.parse(argc, argv);
+    CLI11_PARSE(app, argc, argv);
 
     std::println("Configuration: \n{}", config);
 

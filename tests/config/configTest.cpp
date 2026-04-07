@@ -18,11 +18,20 @@ std::string get_good_example_file() {
     return std::string(source_root) + "/tests/config/example_config_files/example.good.toml";
 }
 
+std::string get_good_missing_keys_example_file() {
+    const char* source_root = getenv("MESON_SOURCE_ROOT");
+    if (source_root == nullptr) {
+        throw std::runtime_error("MESON_SOURCE_ROOT environment variable is not set.");
+    }
+    return std::string(source_root) + "/tests/config/example_config_files/example.good.missing.field.toml";
+}
+
 
 enum class BAD_FILES {
     UNKNOWN_KEY,
     INVALID_TYPE,
-    INCORRECT_ARRAY_SIZE
+    INCORRECT_ARRAY_SIZE,
+    MISSING_NONDEFAULT_KEY
 };
 
 std::string get_bad_example_file(BAD_FILES type) {
@@ -37,6 +46,8 @@ std::string get_bad_example_file(BAD_FILES type) {
             return std::string(source_root) + "/tests/config/example_config_files/example.invalidtype.toml";
         case BAD_FILES::INCORRECT_ARRAY_SIZE:
             return std::string(source_root) + "/tests/config/example_config_files/example.incorrectarraysize.toml";
+        case BAD_FILES::MISSING_NONDEFAULT_KEY:
+            return std::string(source_root) + "/tests/config/example_config_files/example.missing.nondefault.field.toml";
     }
     throw std::runtime_error("Invalid BAD_FILES type.");
 }
@@ -130,4 +141,37 @@ TEST_F(configTest, save_schema) {
     using namespace fourdst::config;
     Config<TestConfigSchema> cfg;
     EXPECT_NO_THROW(cfg.save_schema("TestConfigSchema.schema.json"));
+}
+
+TEST_F(configTest, missing_default_keys) {
+    using namespace fourdst::config;
+    Config<TestConfigSchema> cfg;
+    EXPECT_NO_THROW(cfg.load(get_good_example_file()));
+}
+
+TEST_F(configTest, missing_nondefault_keys) {
+    using namespace fourdst::config;
+    Config<TestConfigSchema> cfg;
+    EXPECT_THROW(cfg.load(get_bad_example_file(BAD_FILES::MISSING_NONDEFAULT_KEY)), exceptions::ConfigParseError);
+}
+
+TEST_F(configTest, mutate_and_reset) {
+    using namespace fourdst::config;
+    Config<TestConfigSchema> cfg;
+    EXPECT_NO_THROW(cfg.load(get_good_example_file()));
+
+    EXPECT_TRUE(cfg->physics.diffusion);
+    EXPECT_EQ(cfg.get_state(), ConfigState::LOADED_FROM_FILE);
+    EXPECT_NO_THROW(
+        cfg.mutate([](auto& data) {
+            data.physics.diffusion = false;
+        });
+    );
+    EXPECT_FALSE(cfg->physics.diffusion);
+    EXPECT_EQ(cfg.get_state(), ConfigState::MODIFIED);
+
+    EXPECT_NO_THROW(cfg.reset());
+    EXPECT_TRUE(cfg->physics.diffusion);
+    EXPECT_EQ(cfg.get_state(), ConfigState::LOADED_FROM_FILE);
+
 }

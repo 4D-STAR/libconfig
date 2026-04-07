@@ -31,7 +31,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.1.0</span>
+   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.2.0</span>
    </div>
    <div id="projectbrief">Reflection based C++ configuration library</div>
   </td>
@@ -126,10 +126,12 @@ Basic Usage</h3>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">fourdst/config/config.h</a>&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;print&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;optional&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">struct </span>MyPhysicsOptions {</div>
 <div class="line">    <span class="keywordtype">int</span> gravity = 10;</div>
 <div class="line">    <span class="keywordtype">float</span> friction = 0.5f;</div>
+<div class="line">    std::optional&lt;float&gt; dampening = 0.1f;</div>
 <div class="line">    <span class="keywordtype">bool</span> enable_wind = <span class="keyword">false</span>;</div>
 <div class="line">};</div>
 <div class="line"> </div>
@@ -156,21 +158,52 @@ Basic Usage</h3>
 <div class="line">    </div>
 <div class="line">    <span class="comment">// You can load a config from a file</span></div>
 <div class="line">    <span class="keywordflow">try</span> {</div>
-<div class="line">        cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#ae0097a0c728ad24a5d03f9a8580eac74">load</a>(<span class="stringliteral">&quot;my_config.toml&quot;</span>);</div>
+<div class="line">        cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a6d51abcf7ab58a3e7a696817871916e9">load</a>(<span class="stringliteral">&quot;my_config.toml&quot;</span>);</div>
+<div class="line">        <span class="comment">// You can also pass an optional bool as a second argument to turn on verbose error </span></div>
+<div class="line">        <span class="comment">// reporting. This will display a tree of missing or invalid fields. Note that due to limitations</span></div>
+<div class="line">        <span class="comment">// in C++&#39;s ability to detect default iniailized values vs initializer list values </span></div>
+<div class="line">        <span class="comment">// missing fields which you set an initializer list for are still considered missing. </span></div>
+<div class="line">        <span class="comment">// **ONLY fields marked with std::optional are exempt from this rule.**</span></div>
 <div class="line">    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="classfourdst_1_1config_1_1exceptions_1_1_config_error.html">fourdst::config::exceptions::ConfigError</a>&amp; e) {</div>
 <div class="line">        std::println(<span class="stringliteral">&quot;Error loading config: {}&quot;</span>, e.<a class="code hl_function" href="classfourdst_1_1config_1_1exceptions_1_1_config_error.html#aed6ae63fbbc9cb7e1d372904638b1fe6">what</a>());</div>
 <div class="line">    }</div>
 <div class="line">    </div>
 <div class="line">    <span class="comment">// You can access the config values</span></div>
 <div class="line">    std::println(<span class="stringliteral">&quot;My Simulation Name: {}, My Simulation Gravity: {}&quot;</span>, cfg-&gt;name, cfg-&gt;physics.gravity);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// libconfig intentioanlly discourages direct modification of config values. However, if you need </span></div>
+<div class="line">    <span class="comment">// to modify values after loading them you can use the mutate function. This takes a lambda</span></div>
+<div class="line">    <span class="comment">// which recives a mutable reference to the underlying config struct.</span></div>
+<div class="line">    </div>
+<div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#acf39608ffb91ee1dc058fcf42fedfb5f">mutate</a>([](MySimulationConfig&amp; config) {</div>
+<div class="line">        config-&gt;physics.enable_wind = <span class="keyword">true</span>;</div>
+<div class="line">    });</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Making these mutations will put the config into a &quot;MODIFIED&quot; state and will cache the unmodified values. </span></div>
+<div class="line">    <span class="comment">// You can reset the state and revert to the unmodified values with the reset function.</span></div>
+<div class="line">    </div>
+<div class="line">    cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a8f0ae5e8f5ebff21c94ed40986f8802f">reset</a>();</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// The current state of the config can be checked with the get_state() function or the describe_state() function.</span></div>
+<div class="line">    <span class="comment">// get_state returns an enum value while describe_state returns a human readable string.</span></div>
+<div class="line">    </div>
+<div class="line">    std::println(<span class="stringliteral">&quot;Config State: {}&quot;</span>, cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a173250f83357b28ab7a5e718581ac7e3">describe_state</a>());</div>
+<div class="line">    <a class="code hl_enumeration" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7e">fourdst::config::ConfigState</a> state = cfg.<a class="code hl_function" href="classfourdst_1_1config_1_1_config.html#a531023140279187dc4bf4720ad64a75a">get_state</a>();</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Possible states are DEFAULT, LOADED_FROM_FILE, and MODIFIED</span></div>
 <div class="line">}</div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:113</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a91fa54016e231a8361142b51807f047d"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a91fa54016e231a8361142b51807f047d">fourdst::config::Config::save</a></div><div class="ttdeci">void save(std::string_view path) const</div><div class="ttdoc">Saves the current configuration to a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:164</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae0097a0c728ad24a5d03f9a8580eac74"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#ae0097a0c728ad24a5d03f9a8580eac74">fourdst::config::Config::load</a></div><div class="ttdeci">void load(const std::string_view path)</div><div class="ttdoc">Loads configuration from a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:249</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae698328f4cf5b175bf113b0d8dbc7937"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#ae698328f4cf5b175bf113b0d8dbc7937">fourdst::config::Config::save_schema</a></div><div class="ttdeci">static void save_schema(const std::string &amp;path)</div><div class="ttdoc">Generates and saves a JSON schema for the configuration structure.</div><div class="ttdef"><b>Definition</b> base.h:300</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:117</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a173250f83357b28ab7a5e718581ac7e3"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a173250f83357b28ab7a5e718581ac7e3">fourdst::config::Config::describe_state</a></div><div class="ttdeci">std::string describe_state() const</div><div class="ttdoc">Returns a string description of the current configuration state.</div><div class="ttdef"><b>Definition</b> base.h:353</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a531023140279187dc4bf4720ad64a75a"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a531023140279187dc4bf4720ad64a75a">fourdst::config::Config::get_state</a></div><div class="ttdeci">ConfigState get_state() const</div><div class="ttdoc">Gets the current state of the configuration object.</div><div class="ttdef"><b>Definition</b> base.h:347</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a6d51abcf7ab58a3e7a696817871916e9"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a6d51abcf7ab58a3e7a696817871916e9">fourdst::config::Config::load</a></div><div class="ttdeci">void load(const std::string_view path, const bool verbose=false)</div><div class="ttdoc">Loads configuration from a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:253</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a8f0ae5e8f5ebff21c94ed40986f8802f"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a8f0ae5e8f5ebff21c94ed40986f8802f">fourdst::config::Config::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> base.h:375</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a91fa54016e231a8361142b51807f047d"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#a91fa54016e231a8361142b51807f047d">fourdst::config::Config::save</a></div><div class="ttdeci">void save(std::string_view path) const</div><div class="ttdoc">Saves the current configuration to a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:168</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_acf39608ffb91ee1dc058fcf42fedfb5f"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#acf39608ffb91ee1dc058fcf42fedfb5f">fourdst::config::Config::mutate</a></div><div class="ttdeci">void mutate(MutatorFunc &amp;&amp;mutator)</div><div class="ttdef"><b>Definition</b> base.h:367</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae698328f4cf5b175bf113b0d8dbc7937"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html#ae698328f4cf5b175bf113b0d8dbc7937">fourdst::config::Config::save_schema</a></div><div class="ttdeci">static void save_schema(const std::string &amp;path)</div><div class="ttdoc">Generates and saves a JSON schema for the configuration structure.</div><div class="ttdef"><b>Definition</b> base.h:328</div></div>
 <div class="ttc" id="aclassfourdst_1_1config_1_1exceptions_1_1_config_error_html"><div class="ttname"><a href="classfourdst_1_1config_1_1exceptions_1_1_config_error.html">fourdst::config::exceptions::ConfigError</a></div><div class="ttdoc">Base exception class for all configuration-related errors.</div><div class="ttdef"><b>Definition</b> exceptions.h:20</div></div>
 <div class="ttc" id="aclassfourdst_1_1config_1_1exceptions_1_1_config_error_html_aed6ae63fbbc9cb7e1d372904638b1fe6"><div class="ttname"><a href="classfourdst_1_1config_1_1exceptions_1_1_config_error.html#aed6ae63fbbc9cb7e1d372904638b1fe6">fourdst::config::exceptions::ConfigError::what</a></div><div class="ttdeci">const char * what() const noexcept override</div><div class="ttdoc">Returns the error message.</div><div class="ttdef"><b>Definition</b> exceptions.h:32</div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Main entry point for the fourdst::config library.</div></div>
+<div class="ttc" id="anamespacefourdst_1_1config_html_a18da8b2ec98ddd0a28e61644ce795b7e"><div class="ttname"><a href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7e">fourdst::config::ConfigState</a></div><div class="ttdeci">ConfigState</div><div class="ttdoc">Represents the current state of a Config object.</div><div class="ttdef"><b>Definition</b> base.h:62</div></div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
 CLI Integration</h3>
 <p>libconfig integrates with <a href="https://github.com/CLIUtils/CLI11">CLI11</a> to automatically expose configuration fields as command-line arguments.</p>

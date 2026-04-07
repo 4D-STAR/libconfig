@@ -1,9 +1,11 @@
 <map id="fourdst::config::Config&lt; T &gt;" name="fourdst::config::Config&lt; T &gt;">
-<area shape="rect" id="Node000001" title="Wrapper class for managing strongly&#45;typed configuration structures." alt="" coords="5,184,188,210"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="29,95,68,121"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,136,53,159,62,171,75,181,71,185,58,175,48,161,43,137"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="105,95,184,121"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,136,105,185,101,182,128,134"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="82,5,207,46"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,61,147,95,142,95,142,61"/>
+<area shape="rect" id="Node000001" title="Wrapper class for managing strongly&#45;typed configuration structures." alt="" coords="53,199,236,225"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,95,44,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="30,133,40,155,52,173,70,186,92,198,87,199,67,191,48,177,35,158,29,138"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="103,95,186,121"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,135,147,200,142,198,142,138"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="244,95,323,121"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="279,134,270,158,256,177,235,191,212,201,211,196,233,186,252,173,266,155,275,138"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="221,5,346,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="285,59,286,96,281,94,282,63"/>
 </map>

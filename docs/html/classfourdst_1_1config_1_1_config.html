@@ -31,7 +31,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.1.0</span>
+   <div id="projectname">libconfig<span id="projectnumber">&#160;v2.2.0</span>
    </div>
    <div id="projectbrief">Reflection based C++ configuration library</div>
   </td>
@@ -117,7 +117,7 @@ $(function(){initNavTree('classfourdst_1_1config_1_1_config.html',''); initResiz
 <div class="dynheader">
 Collaboration diagram for fourdst::config::Config&lt; T &gt;:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classfourdst_1_1config_1_1_config__coll__graph.svg" width="212" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfourdst_1_1config_1_1_config__coll__graph.svg" width="362" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -158,15 +158,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac9a325e3b1eaf06d137d91dac9f62b77" id="r_ac9a325e3b1eaf06d137d91dac9f62b77"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9a325e3b1eaf06d137d91dac9f62b77">describe_root_name_load_policy</a> () const</td></tr>
 <tr class="memdesc:ac9a325e3b1eaf06d137d91dac9f62b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string description of the current root name load policy.  <br /></td></tr>
 <tr class="separator:ac9a325e3b1eaf06d137d91dac9f62b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0097a0c728ad24a5d03f9a8580eac74" id="r_ae0097a0c728ad24a5d03f9a8580eac74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0097a0c728ad24a5d03f9a8580eac74">load</a> (const std::string_view path)</td></tr>
-<tr class="memdesc:ae0097a0c728ad24a5d03f9a8580eac74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads configuration from a TOML file.  <br /></td></tr>
-<tr class="separator:ae0097a0c728ad24a5d03f9a8580eac74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d51abcf7ab58a3e7a696817871916e9" id="r_a6d51abcf7ab58a3e7a696817871916e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d51abcf7ab58a3e7a696817871916e9">load</a> (const std::string_view path, const bool verbose=false)</td></tr>
+<tr class="memdesc:a6d51abcf7ab58a3e7a696817871916e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads configuration from a TOML file.  <br /></td></tr>
+<tr class="separator:a6d51abcf7ab58a3e7a696817871916e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a531023140279187dc4bf4720ad64a75a" id="r_a531023140279187dc4bf4720ad64a75a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7e">ConfigState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a531023140279187dc4bf4720ad64a75a">get_state</a> () const</td></tr>
 <tr class="memdesc:a531023140279187dc4bf4720ad64a75a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current state of the configuration object.  <br /></td></tr>
 <tr class="separator:a531023140279187dc4bf4720ad64a75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a173250f83357b28ab7a5e718581ac7e3" id="r_a173250f83357b28ab7a5e718581ac7e3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a173250f83357b28ab7a5e718581ac7e3">describe_state</a> () const</td></tr>
 <tr class="memdesc:a173250f83357b28ab7a5e718581ac7e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string description of the current configuration state.  <br /></td></tr>
 <tr class="separator:a173250f83357b28ab7a5e718581ac7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf39608ffb91ee1dc058fcf42fedfb5f" id="r_acf39608ffb91ee1dc058fcf42fedfb5f"><td class="memTemplParams" colspan="2">template&lt;typename MutatorFunc&gt; </td></tr>
+<tr class="memitem:acf39608ffb91ee1dc058fcf42fedfb5f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#acf39608ffb91ee1dc058fcf42fedfb5f">mutate</a> (MutatorFunc &amp;&amp;mutator)</td></tr>
+<tr class="separator:acf39608ffb91ee1dc058fcf42fedfb5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0ae5e8f5ebff21c94ed40986f8802f" id="r_a8f0ae5e8f5ebff21c94ed40986f8802f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0ae5e8f5ebff21c94ed40986f8802f">reset</a> ()</td></tr>
+<tr class="separator:a8f0ae5e8f5ebff21c94ed40986f8802f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -178,6 +183,10 @@ Static Public Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a77b1d1992d65f58f33cb3c0f67c751b1" id="r_a77b1d1992d65f58f33cb3c0f67c751b1"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77b1d1992d65f58f33cb3c0f67c751b1">m_content</a></td></tr>
 <tr class="separator:a77b1d1992d65f58f33cb3c0f67c751b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9174a0225bcadc7a653d1742a40f163" id="r_af9174a0225bcadc7a653d1742a40f163"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9174a0225bcadc7a653d1742a40f163">m_content_orig</a></td></tr>
+<tr class="separator:af9174a0225bcadc7a653d1742a40f163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e4c3f8fd24643d1af9bf08b197b4930" id="r_a9e4c3f8fd24643d1af9bf08b197b4930"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e4c3f8fd24643d1af9bf08b197b4930">m_content_mutex</a></td></tr>
+<tr class="separator:a9e4c3f8fd24643d1af9bf08b197b4930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01fd433545e9fb6309e0aa24cf59b01c" id="r_a01fd433545e9fb6309e0aa24cf59b01c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01fd433545e9fb6309e0aa24cf59b01c">m_root_name</a> = &quot;main&quot;</td></tr>
 <tr class="separator:a01fd433545e9fb6309e0aa24cf59b01c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae493f71623caf944ed8f078167941adf" id="r_ae493f71623caf944ed8f078167941adf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7e">ConfigState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae493f71623caf944ed8f078167941adf">m_state</a> = <a class="el" href="namespacefourdst_1_1config.html#a18da8b2ec98ddd0a28e61644ce795b7ea5b39c8b553c821e7cddc6da64b5bd2ee">ConfigState::DEFAULT</a></td></tr>
@@ -213,18 +222,18 @@ class fourdst::config::Config&lt; T &gt;</div><p>Wrapper class for managing stro
 <div class="line">    cfg.<a class="code hl_function" href="#a91fa54016e231a8361142b51807f047d">save</a>(<span class="stringliteral">&quot;settings.toml&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Load from file</span></div>
-<div class="line">    cfg.<a class="code hl_function" href="#ae0097a0c728ad24a5d03f9a8580eac74">load</a>(<span class="stringliteral">&quot;settings.toml&quot;</span>);</div>
+<div class="line">    cfg.<a class="code hl_function" href="#a6d51abcf7ab58a3e7a696817871916e9">load</a>(<span class="stringliteral">&quot;settings.toml&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Save JSON Schema for editors</span></div>
 <div class="line">    cfg.<a class="code hl_function" href="#ae698328f4cf5b175bf113b0d8dbc7937">save_schema</a>(<span class="stringliteral">&quot;schema.json&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:113</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a4715e05dc32076789462266e4b571dc0"><div class="ttname"><a href="#a4715e05dc32076789462266e4b571dc0">fourdst::config::Config::main</a></div><div class="ttdeci">const T &amp; main() const</div><div class="ttdoc">Explicit accessor for the main configuration content.</div><div class="ttdef"><b>Definition</b> base.h:148</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a91fa54016e231a8361142b51807f047d"><div class="ttname"><a href="#a91fa54016e231a8361142b51807f047d">fourdst::config::Config::save</a></div><div class="ttdeci">void save(std::string_view path) const</div><div class="ttdoc">Saves the current configuration to a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:164</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae0097a0c728ad24a5d03f9a8580eac74"><div class="ttname"><a href="#ae0097a0c728ad24a5d03f9a8580eac74">fourdst::config::Config::load</a></div><div class="ttdeci">void load(const std::string_view path)</div><div class="ttdoc">Loads configuration from a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:249</div></div>
-<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae698328f4cf5b175bf113b0d8dbc7937"><div class="ttname"><a href="#ae698328f4cf5b175bf113b0d8dbc7937">fourdst::config::Config::save_schema</a></div><div class="ttdeci">static void save_schema(const std::string &amp;path)</div><div class="ttdoc">Generates and saves a JSON schema for the configuration structure.</div><div class="ttdef"><b>Definition</b> base.h:300</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html"><div class="ttname"><a href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a></div><div class="ttdoc">Wrapper class for managing strongly-typed configuration structures.</div><div class="ttdef"><b>Definition</b> base.h:117</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a4715e05dc32076789462266e4b571dc0"><div class="ttname"><a href="#a4715e05dc32076789462266e4b571dc0">fourdst::config::Config::main</a></div><div class="ttdeci">const T &amp; main() const</div><div class="ttdoc">Explicit accessor for the main configuration content.</div><div class="ttdef"><b>Definition</b> base.h:152</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a6d51abcf7ab58a3e7a696817871916e9"><div class="ttname"><a href="#a6d51abcf7ab58a3e7a696817871916e9">fourdst::config::Config::load</a></div><div class="ttdeci">void load(const std::string_view path, const bool verbose=false)</div><div class="ttdoc">Loads configuration from a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:253</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_a91fa54016e231a8361142b51807f047d"><div class="ttname"><a href="#a91fa54016e231a8361142b51807f047d">fourdst::config::Config::save</a></div><div class="ttdeci">void save(std::string_view path) const</div><div class="ttdoc">Saves the current configuration to a TOML file.</div><div class="ttdef"><b>Definition</b> base.h:168</div></div>
+<div class="ttc" id="aclassfourdst_1_1config_1_1_config_html_ae698328f4cf5b175bf113b0d8dbc7937"><div class="ttname"><a href="#ae698328f4cf5b175bf113b0d8dbc7937">fourdst::config::Config::save_schema</a></div><div class="ttdeci">static void save_schema(const std::string &amp;path)</div><div class="ttdoc">Generates and saves a JSON schema for the configuration structure.</div><div class="ttdef"><b>Definition</b> base.h:328</div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Main entry point for the fourdst::config library.</div></div>
 </div><!-- fragment --> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -408,8 +417,8 @@ template&lt;IsConfigSchema T&gt; </div>
 
 </div>
 </div>
-<a id="ae0097a0c728ad24a5d03f9a8580eac74" name="ae0097a0c728ad24a5d03f9a8580eac74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0097a0c728ad24a5d03f9a8580eac74">&#9670;&#160;</a></span>load()</h2>
+<a id="a6d51abcf7ab58a3e7a696817871916e9" name="a6d51abcf7ab58a3e7a696817871916e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d51abcf7ab58a3e7a696817871916e9">&#9670;&#160;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -422,8 +431,12 @@ template&lt;IsConfigSchema T&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a>&lt; T &gt;::load </td>
           <td>(</td>
-          <td class="paramtype">const std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td class="paramtype">const std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -486,6 +499,35 @@ template&lt;IsConfigSchema T&gt; </div>
 
 <p>Explicit accessor for the main configuration content. </p>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the constant configuration content. </dd></dl>
+
+</div>
+</div>
+<a id="acf39608ffb91ee1dc058fcf42fedfb5f" name="acf39608ffb91ee1dc058fcf42fedfb5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf39608ffb91ee1dc058fcf42fedfb5f">&#9670;&#160;</a></span>mutate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;IsConfigSchema T&gt; </div>
+<div class="memtemplate">
+template&lt;typename MutatorFunc&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a>&lt; T &gt;::mutate </td>
+          <td>(</td>
+          <td class="paramtype">MutatorFunc &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>mutator</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -576,6 +618,33 @@ template&lt;IsConfigSchema T&gt; </div>
 
 <p>Access member of the underlying configuration struct. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the constant configuration content. </dd></dl>
+
+</div>
+</div>
+<a id="a8f0ae5e8f5ebff21c94ed40986f8802f" name="a8f0ae5e8f5ebff21c94ed40986f8802f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0ae5e8f5ebff21c94ed40986f8802f">&#9670;&#160;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;IsConfigSchema T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a>&lt; T &gt;::reset </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -782,6 +851,54 @@ template&lt;IsConfigSchema T&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">T <a class="el" href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a>&lt; T &gt;::m_content</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e4c3f8fd24643d1af9bf08b197b4930" name="a9e4c3f8fd24643d1af9bf08b197b4930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e4c3f8fd24643d1af9bf08b197b4930">&#9670;&#160;</a></span>m_content_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;IsConfigSchema T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex <a class="el" href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a>&lt; T &gt;::m_content_mutex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af9174a0225bcadc7a653d1742a40f163" name="af9174a0225bcadc7a653d1742a40f163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9174a0225bcadc7a653d1742a40f163">&#9670;&#160;</a></span>m_content_orig</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;IsConfigSchema T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="classfourdst_1_1config_1_1_config.html">fourdst::config::Config</a>&lt; T &gt;::m_content_orig</td>
         </tr>
       </table>
   </td>
