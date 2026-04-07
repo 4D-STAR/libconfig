@@ -1,0 +1,27 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,340,113,366"/>
+<area shape="rect" id="Node000001" href="$structfourdst_1_1config_1_1is__config__wrapper_3_01_config_3_01_t_01_4_01_4.html" title="Specialization of is_config_wrapper for Config&lt;T&gt;." alt="" coords="176,245,342,301"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="106,332,189,299,186,304,109,336"/>
+<area shape="rect" id="Node000003" href="$structfourdst_1_1config_1_1validate_1_1is__map__impl_3_01std_1_1map_3_01_k_00_01_v_00_01_c_00_01_a_01_4_01_4.html" title=" " alt="" coords="177,325,342,381"/>
+<area shape="poly" id="edge7_Node000000_Node000003" title=" " alt="" coords="127,351,178,352,174,355,129,356"/>
+<area shape="rect" id="Node000004" href="$structfourdst_1_1config_1_1validate_1_1is__map__impl_3_01std_1_1unordered__map_3_01_k_00_01_v_00_01_h_00_01_e_00_01_a_01_4_01_4.html" title=" " alt="" coords="161,5,358,61"/>
+<area shape="poly" id="edge8_Node000000_Node000004" title=" " alt="" coords="69,325,110,218,121,175,125,140,134,107,159,71,175,59,173,64,163,75,139,109,131,141,126,176,115,219,74,327"/>
+<area shape="rect" id="Node000005" href="$structfourdst_1_1config_1_1validate_1_1is__optional__impl_3_01std_1_1optional_3_01_t_01_4_01_4.html" title=" " alt="" coords="181,85,338,141"/>
+<area shape="poly" id="edge9_Node000000_Node000005" title=" " alt="" coords="69,325,111,230,136,183,159,151,182,137,179,141,163,155,140,185,115,232,74,327"/>
+<area shape="rect" id="Node000006" href="$structfourdst_1_1config_1_1validate_1_1is__vector__impl_3_01std_1_1vector_3_01_t_00_01_a_01_4_01_4.html" title=" " alt="" coords="181,165,338,221"/>
+<area shape="poly" id="edge10_Node000000_Node000006" title=" " alt="" coords="74,326,110,278,133,253,159,231,182,219,178,223,162,235,137,257,114,282,79,328"/>
+<area shape="rect" id="Node000007" href="$structfourdst_1_1config_1_1is__config__wrapper.html" title="Type trait to determine if a type is a Config wrapper." alt="" coords="185,601,334,642"/>
+<area shape="poly" id="edge11_Node000000_Node000007" title=" " alt="" coords="65,379,78,426,96,481,123,537,141,563,162,586,187,604,182,604,159,590,137,566,119,540,91,483,72,427,64,384"/>
+<area shape="rect" id="Node000008" href="$structfourdst_1_1config_1_1validate_1_1is__map__impl.html" title=" " alt="" coords="181,405,338,446"/>
+<area shape="poly" id="edge12_Node000000_Node000008" title=" " alt="" coords="106,370,162,391,195,403,190,405,160,396,107,375"/>
+<area shape="rect" id="Node000009" href="$structfourdst_1_1config_1_1validate_1_1is__optional__impl.html" title=" " alt="" coords="181,470,338,511"/>
+<area shape="poly" id="edge13_Node000000_Node000009" title=" " alt="" coords="79,376,116,417,162,455,187,469,182,470,159,459,112,421,79,381"/>
+<area shape="rect" id="Node000010" href="$structfourdst_1_1config_1_1validate_1_1is__vector__impl.html" title=" " alt="" coords="181,536,338,576"/>
+<area shape="poly" id="edge14_Node000000_Node000010" title=" " alt="" coords="70,378,105,450,131,488,162,520,183,535,178,535,159,525,126,491,100,452,69,383"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8,180,110,206"/>
+<area shape="poly" id="edge15_Node000002_Node000001" title=" " alt="" coords="107,210,190,243,186,246,108,215"/>
+<area shape="poly" id="edge16_Node000002_Node000003" title=" " alt="" coords="76,217,114,265,137,289,162,311,182,324,177,326,159,315,133,293,110,268,77,222"/>
+<area shape="poly" id="edge17_Node000002_Node000004" title=" " alt="" coords="74,166,110,118,133,93,159,71,181,59,178,64,162,75,137,97,114,122,79,168"/>
+<area shape="poly" id="edge18_Node000002_Node000005" title=" " alt="" coords="106,172,189,139,186,144,109,176"/>
+<area shape="poly" id="edge19_Node000002_Node000006" title=" " alt="" coords="124,191,182,191,178,195,127,195"/>
+</map>
