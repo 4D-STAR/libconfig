@@ -4,8 +4,8 @@
 
 struct PhysicsConfigOptions {
     bool diffusion;
-    bool convection;
-    bool radiation;
+    std::optional<bool> convection;
+    std::optional<bool> radiation;
     std::array<int, 3> flags;
 };
 
@@ -18,7 +18,7 @@ struct SimulationConfigOptions {
 struct OutputConfigOptions {
     std::string directory = "./output";
     std::string format = "hdf5";
-    bool save_plots = false;
+    std::optional<bool> save_plots = false;
 };
 
 struct TestConfigSchema {

@@ -1,0 +1,16 @@
+[main]
+description = "This is an example configuration file."
+author = "Example Author"
+
+[main.physics]
+diffusion = true
+convection = false
+radiation = true
+flags = [1, 0, 1]
+
+[main.simulation]
+output_frequency = 10
+
+[main.output]
+format = "csv"
+directory = "results/"

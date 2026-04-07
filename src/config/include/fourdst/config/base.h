@@ -14,8 +14,10 @@
 #include <vector>
 #include <string_view>
 #include <type_traits>
+#include <mutex>
 
 #include "fourdst/config/exceptions/exceptions.h"
+#include "fourdst/config/validate.h"
 
 #include "rfl.hpp"
 #include "rfl/toml.hpp"
@@ -65,7 +67,9 @@ namespace fourdst::config {
         /**
          * @brief Configuration has been successfully populated from a file.
          */
-        LOADED_FROM_FILE
+        LOADED_FROM_FILE,
+
+        MODIFIED
     };
 
 
@@ -127,7 +131,7 @@ namespace fourdst::config {
          * @brief Get a mutable pointer to the configuration content.
          * @return Pointer to the mutable configuration content.
          */
-        T* write() const { return &m_content; }
+        [[deprecated("write has been depreceated for mutate() and will be removed in versions >= v3.0.0")]] T* write() const { return &m_content; }
 
         /**
          * @brief Dereference operator to access the underlying configuration struct.
@@ -246,7 +250,7 @@ namespace fourdst::config {
          * }
          * @endcode
          */
-        void load(const std::string_view path) {
+        void load(const std::string_view path, const bool verbose = false) {
             if (m_state == ConfigState::LOADED_FROM_FILE) {
                 throw exceptions::ConfigLoadError(
                     "Config has already been loaded from file. Reloading is not supported.");
@@ -261,8 +265,32 @@ namespace fourdst::config {
             const rfl::Result<wrapper> result = rfl::toml::load<wrapper>(std::string(path));
 
             if (!result) {
+                std::vector<std::string> missing_fields;
+
+                try {
+                    toml::table root_tbl = toml::parse_file(std::string(path));
+
+                    if (!root_tbl.empty()) {
+                        const auto loaded_root_name = std::string(root_tbl.begin()->first);
+                        const toml::table* t_tbl = root_tbl[loaded_root_name].as_table();
+
+                        if (t_tbl) {
+                            validate::ConfigValidator<T>::check(t_tbl, loaded_root_name, missing_fields);
+                        }
+                    }
+                } catch (const toml::parse_error&) {
+                    throw exceptions::ConfigParseError("Unable to parse TOML file for an unknown reason. This normally means the toml file is empty or completely malformed. Please check the file content and ensure it is valid TOML. If the file is empty, consider adding at least an empty table (e.g., [main]) to it.");
+                }
+
+                if (!missing_fields.empty() && verbose) {
+                    std::cerr << validate::report_all_missing_fields(missing_fields) << std::endl;
+                }
+
                 throw exceptions::ConfigParseError(
-                    std::format("Failed to load config from file: {}", path));
+                    std::format("Failed to load config from file: {}. Reason: {}",
+                                path,
+                                result.error().what())
+                );
             }
 
 
@@ -328,13 +356,35 @@ namespace fourdst::config {
                     return "DEFAULT";
                 case ConfigState::LOADED_FROM_FILE:
                     return "LOADED_FROM_FILE";
+                case ConfigState::MODIFIED:
+                    return "MODIFIED";
                 default:
                     return "UNKNOWN";
             }
         }
 
+        template <typename MutatorFunc>
+        void mutate(MutatorFunc&& mutator) {
+            m_content_mutex.lock();
+            m_content_orig = m_content;
+            mutator(m_content);
+            m_state = ConfigState::MODIFIED;
+            m_content_mutex.unlock();
+        }
+
+        void reset() {
+            m_content_mutex.lock();
+            if (m_state == ConfigState::MODIFIED) {
+                m_content = m_content_orig;
+                m_state = ConfigState::LOADED_FROM_FILE;
+            }
+            m_content_mutex.unlock();
+        }
+
     private:
         T m_content;
+        T m_content_orig;
+        std::mutex m_content_mutex;
         std::string m_root_name = "main";
         ConfigState m_state = ConfigState::DEFAULT;
         RootNameLoadPolicy m_root_name_load_policy = RootNameLoadPolicy::KEEP_CURRENT;
