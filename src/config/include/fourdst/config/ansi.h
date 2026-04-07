@@ -16,7 +16,7 @@
 
 namespace fourdst::config::utils {
 
-    bool supports_ansi_colors() {
+    inline bool supports_ansi_colors() {
         if (std::getenv("NO_COLOR")) return false;
         if (std::getenv("FORCE_COLOR")) return true;
 
@@ -36,7 +36,7 @@ namespace fourdst::config::utils {
 #endif
     }
 
-    const static bool TERM_COLOR_SUPPORT = supports_ansi_colors();
+    inline const bool TERM_COLOR_SUPPORT = supports_ansi_colors();
 
     class ANSIColor {
     public:
@@ -54,9 +54,9 @@ namespace fourdst::config::utils {
 
     };
 
-    static ANSIColor RED{"\033[31m"};
-    static ANSIColor GREEN{"\033[32m"};
-    static ANSIColor BLUE{"\033[34m"};
-    static ANSIColor CYAN{"\033[36m"};
-    static ANSIColor RESET{"\033[0m"};
+    inline ANSIColor RED{"\033[31m"};
+    inline ANSIColor GREEN{"\033[32m"};
+    inline ANSIColor BLUE{"\033[34m"};
+    inline ANSIColor CYAN{"\033[36m"};
+    inline ANSIColor RESET{"\033[0m"};
 }
