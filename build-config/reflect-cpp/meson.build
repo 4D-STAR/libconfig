@@ -19,15 +19,14 @@ reflect_cpp_include_dirs = include_directories('include')
 reflect_cpp_library = static_library(
     'reflect_cpp',
     reflect_cpp_sources,
-    include_directories: reflect_cpp_include_dirs,
+    include_directories: [reflect_cpp_include_dirs, tomlpp_inc_dir],
     install: true,
-    dependencies: [tomlpp_dep],
+    install_dir: get_option('libdir') / 'fourdst' / 'vendor',
 )
 
 reflect_cpp_dep = declare_dependency(
     link_with: reflect_cpp_library,
-    include_directories: reflect_cpp_include_dirs,
-    dependencies: [tomlpp_dep],
+    include_directories: [reflect_cpp_include_dirs, tomlpp_inc_dir]
 )
 
 install_subdir(
