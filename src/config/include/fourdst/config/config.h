@@ -100,4 +100,6 @@
 #include "fourdst/config/base.h"
 #include "fourdst/config/exceptions/exceptions.h"
 #include "fourdst/config/cli.h"
+#include "fourdst/config/ansi.h"
+#include "fourdst/config/validate.h"
 
