@@ -12,8 +12,8 @@ config_headers = files(
 )
 install_headers(config_headers, subdir : 'fourdst/config')
 
-condig_exception_headers = files(
+config_exception_headers = files(
     'include/fourdst/config/exceptions/exceptions.h',
 )
-install_headers(config_headers, subdir : 'fourdst/config/exceptions')
+install_headers(config_exception_headers, subdir : 'fourdst/config/exceptions')
 

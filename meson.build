@@ -18,7 +18,7 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #
 # *********************************************************************** #
-project('libconfig', ['cpp', 'c'], version: 'v2.2.4', default_options: ['cpp_std=c++23'], meson_version: '>=1.5.0')
+project('libconfig', ['cpp', 'c'], version: 'v2.2.5', default_options: ['cpp_std=c++23'], meson_version: '>=1.5.0')
 
 # Add default visibility for all C++ targets
 add_project_arguments('-fvisibility=default', language: 'cpp')
@@ -42,7 +42,7 @@ if get_option('pkg_config')
         name: 'libconfig',
         description: 'Configuration module for SERiF and related projects',
         version: meson.project_version(),
-        subdirs: ['fourdst'],
+        libraries: [reflect_cpp_library],
         filebase: 'fourdst_config',
         install_dir: join_paths(get_option('libdir'), 'pkgconfig')
     )
