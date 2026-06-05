@@ -140,3 +140,24 @@ time_step = 0.01
 max_time = 100.0
 ```
 
+## Linking Other Code
+At compile time libconfig generates a pkg-config file which makes linking other code to libconfig easy. Note that you
+will need to have run `meson setup` at least once to generate the pkg-config file before you can link to it.
+
+Headers are installed to the meson install dir (e.g. /usr/local/include) under a `fourdst/config` subdirectory so you
+can include the main header with `#include "fourdst/config/config.h"`. Including this header will include all of the
+necessary headers for using libconfig.
+
+When linking to libconfig you can use `pkg-config --cflags --libs fourdst-config` to get the necessary compiler and
+linker flags. If you are using meson to build your project you can use `dependency('fourdst-config')` in your
+meson.build file to link to libconfig.
+
+Libraries are installed to the meson install dir (e.g. /usr/local/lib) with the name `libfourdst-config.so` on linux and
+`fourdst-config.a` on macOS. The pkg-config file will take care of the correct library name for your platform.
+
+Finally, vendor headers and libraries are placed in a dedicated vendor directory in the fourdst directory so as to not
+interfere with system packages. The pkg-config file will include the necessary include and library paths to use these
+vendor dependencies as well. For example, libconfig depends on toml++ for parsing TOML files. The toml++ headers are
+included in `fourdst/vendor/tomlplusplus` and the pkg-config file will include the necessary include path to use these
+headers when you link to libconfig.
+

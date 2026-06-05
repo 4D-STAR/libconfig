@@ -1,4 +1,3 @@
-tomlpp_dep = dependency('tomlplusplus', required: true, static: true).as_system()
 
 reflect_cpp_sources = files(
     'src/yyjson.c',
@@ -20,13 +19,18 @@ reflect_cpp_include_dirs = include_directories('include')
 reflect_cpp_library = static_library(
     'reflect_cpp',
     reflect_cpp_sources,
-    include_directories: reflect_cpp_include_dirs,
-    install: false,
-    dependencies: [tomlpp_dep],
+    include_directories: [reflect_cpp_include_dirs, tomlpp_inc_dir],
+    install: true,
+    install_dir: get_option('libdir') / 'fourdst' / 'vendor',
 )
 
 reflect_cpp_dep = declare_dependency(
     link_with: reflect_cpp_library,
-    include_directories: reflect_cpp_include_dirs,
-    dependencies: [tomlpp_dep],
+    include_directories: [reflect_cpp_include_dirs, tomlpp_inc_dir]
+)
+
+install_subdir(
+    'include',
+    install_dir: get_option('includedir') / 'fourdst' / 'vendor',
+    strip_directory: true
 )

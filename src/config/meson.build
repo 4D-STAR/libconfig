@@ -1,12 +1,22 @@
 config_dep = declare_dependency(
-    include_directories: include_directories('include'),
+    include_directories: [
+        include_directories('include'),
+        include_directories('include/fourdst/config'),
+    ],
     dependencies: [reflect_cpp_dep],
 )
 
 config_headers = files(
-  'include/fourdst/config/config.h',
-  'include/fourdst/config/exceptions/exceptions.h',
-  'include/fourdst/config/base.h',
-  'include/fourdst/config/cli.h'
+    'include/fourdst/config/config.h',
+    'include/fourdst/config/base.h',
+    'include/fourdst/config/cli.h',
+    'include/fourdst/config/ansi.h',
+    'include/fourdst/config/validate.h',
 )
-install_headers(config_headers, subdir : 'fourdst/fourdst/config')
+install_headers(config_headers, subdir : 'fourdst/config')
+
+config_exception_headers = files(
+    'include/fourdst/config/exceptions/exceptions.h',
+)
+install_headers(config_exception_headers, subdir : 'fourdst/config/exceptions')
+
