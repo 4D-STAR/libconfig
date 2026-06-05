@@ -1,3 +1,3 @@
 cmake = import('cmake')
 subdir('reflect-cpp')
-subdir('cli11')
+subdir('CLI11')
