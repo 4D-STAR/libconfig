@@ -37,6 +37,9 @@ endif
 
 if get_option('pkg_config')
     message('Generating pkg-config file for libconfig...')
+
+    vendor_inc_flags = '-I${includedir}' / 'fourdst' / 'vendor'
+
     pkg = import('pkgconfig')
     pkg.generate(
         name: 'libconfig',
@@ -44,6 +47,7 @@ if get_option('pkg_config')
         version: meson.project_version(),
         libraries: [reflect_cpp_library],
         filebase: 'fourdst_config',
-        install_dir: join_paths(get_option('libdir'), 'pkgconfig')
+        install_dir: join_paths(get_option('libdir'), 'pkgconfig'),
+        extra_cflags: vendor_inc_flags
     )
 endif

@@ -1,5 +1,8 @@
 config_dep = declare_dependency(
-    include_directories: include_directories('include'),
+    include_directories: [
+        include_directories('include'),
+        include_directories('include/fourdst/config'),
+    ],
     dependencies: [reflect_cpp_dep],
 )
 
