@@ -18,14 +18,35 @@
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #
 # *********************************************************************** #
-project('libconfig', ['cpp', 'c'], version: 'v2.2.8', default_options: ['cpp_std=c++23'], meson_version: '>=1.5.0')
+project('libconfig', ['cpp', 'c'], version: 'v2.2.9', default_options: ['cpp_std=c++23'], meson_version: '>=1.5.0')
 
 # Add default visibility for all C++ targets
 add_project_arguments('-fvisibility=default', language: 'cpp')
 
-config_header_root = get_option('header_install_dir') != '' \
-    ? get_option('header_install_dir') \
-    : get_option('includedir')
+if get_option('build_python')
+    local_py_install = import('python').find_installation('python3', pure: false)
+    fourdst_pkg = local_py_install.get_install_dir() / 'fourdst'
+
+    config_libdir             = fourdst_pkg / 'lib'
+    config_header_install_dir = fourdst_pkg / 'include' / 'fourdst' / 'config'
+
+    vendor_lib_dir             = fourdst_pkg / 'lib' / 'vendor'
+    vendor_header_dir          = fourdst_pkg / 'include' / 'fourdst' / 'vendor'
+
+    message('Installing libconfig in python mode. Install locations are...')
+else
+    config_libdir             = get_option('libdir')
+    config_header_install_dir = get_option('includedir') / 'fourdst' / 'config'
+
+    vendor_lib_dir            = get_option('libdir') / 'fourdst' / 'vendor'
+    vendor_header_dir         = get_option('includedir') / 'fourdst' / 'vendor'
+
+    message('Installing libconfig in non python (normal) mode. Install locations are...')
+endif
+message('    Package Libraries: ' + config_libdir)
+message('    Package Headers:   ' + config_header_install_dir)
+message('    Vendor Libraries:  ' + vendor_lib_dir)
+message('    Vendor Headers:    ' + vendor_header_dir)
 
 cpp = meson.get_compiler('cpp')
 subdir('build-config')
@@ -42,8 +63,7 @@ endif
 if get_option('pkg_config')
     message('Generating pkg-config file for libconfig...')
 
-    vendor_inc_flags = '-I${includedir}' / 'fourdst' / 'vendor'
-
+    vendor_inc_flags = '-I' + get_option('prefix') / vendor_header_dir
     pkg = import('pkgconfig')
     pkg.generate(
         name: 'libconfig',
