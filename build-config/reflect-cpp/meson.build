@@ -33,6 +33,6 @@ reflect_cpp_dep = declare_dependency(
 
 install_subdir(
     'include',
-    install_dir: get_option('includedir') / 'fourdst' / 'vendor',
-    strip_directory: true
+    install_dir: config_header_root / 'fourdst' / 'vendor',
+    strip_directory: true,
 )

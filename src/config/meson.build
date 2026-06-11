@@ -13,10 +13,10 @@ config_headers = files(
     'include/fourdst/config/ansi.h',
     'include/fourdst/config/validate.h',
 )
-install_headers(config_headers, subdir : 'fourdst/config')
 
 config_exception_headers = files(
     'include/fourdst/config/exceptions/exceptions.h',
 )
-install_headers(config_exception_headers, subdir : 'fourdst/config/exceptions')
 
+install_headers(config_headers,           install_dir: config_header_root / 'fourdst' / 'config')
+install_headers(config_exception_headers, install_dir: config_header_root / 'fourdst' / 'config' / 'exceptions')
