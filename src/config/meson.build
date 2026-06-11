@@ -18,5 +18,10 @@ config_exception_headers = files(
     'include/fourdst/config/exceptions/exceptions.h',
 )
 
-install_headers(config_headers,           install_dir: config_header_install_dir)
-install_headers(config_exception_headers, install_dir: config_header_install_dir / 'exceptions')
+if get_option('build_python')
+    install_data(config_headers,           install_dir: config_header_install_dir)
+    install_data(config_exception_headers, install_dir: config_header_install_dir / 'exceptions')
+else
+    install_headers(config_headers,           install_dir: config_header_install_dir)
+    install_headers(config_exception_headers, install_dir: config_header_install_dir / 'exceptions')
+endif
